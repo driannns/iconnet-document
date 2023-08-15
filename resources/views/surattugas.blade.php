@@ -65,8 +65,9 @@
                         <label class="label">
                             <span class="label-text">Dari</span>
                         </label>
-                        <select name="dari" id="dari"
+                        <select name="dari" id="dari" required
                             class="bg-white input bg-transparent input-bordered border-2 w-full">
+                            <option value="">Dari</option>
                             <option value="00:00">00:00</option>
                             <option value="01:00">01:00</option>
                             <option value="02:00">02:00</option>
@@ -98,8 +99,9 @@
                         <label class="label">
                             <span class="label-text">Sampai</span>
                         </label>
-                        <select name="sampai" id="sampai"
+                        <select name="sampai" id="sampai" required
                             class="bg-white input bg-transparent input-bordered border-2 w-full">
+                            <option value="">Sampai</option>
                             <option value="00:00">00:00</option>
                             <option value="01:00">01:00</option>
                             <option value="02:00">02:00</option>
@@ -130,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-wide mt-2" type="submit">Submit</button>
+            <button class="btn btn-wide mt-5" type="submit">Submit</button>
         </form>
         <button class="px-2 py-1 bg-gray-100 m-2 rounded-md" id="btn-print">Generate PDF</button>
 

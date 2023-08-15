@@ -40,7 +40,6 @@ class PdfController extends Controller
             'date' => $formattedDate],
         );
 
-        // dd($request->session()->all());
         return view("surattugas");
     }
 }
