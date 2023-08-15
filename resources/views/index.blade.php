@@ -12,7 +12,16 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
-            <button onclick="generatePDF()" class="px-2 py-1 bg-white m-2 rounded-md ">Generate PDF</button>
         </div>
     </div>
 </x-app-layout>
+<script>
+
+    jQuery(document).ready(function() {
+        // 
+        $('#btn-print').click(function() {
+            window.print();
+        });
+        
+    });
+    </script>

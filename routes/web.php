@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengajuan', function () {
         return view('surattugas');
     });
+    
+    Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
+    Route::post('/pdf', [PdfController::class, 'create'])->name('pdf.create');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

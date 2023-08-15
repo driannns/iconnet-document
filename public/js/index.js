@@ -10,7 +10,8 @@ let month = date.getMonth() + 1;
 let year = date.getFullYear();
 
 let currentDate = `${day}-${month}-${year}`;
-// var x = document.getElementById("myText").value;
+let input = document.querySelector('#tanggal');
+console.log("tanggal");
 // document.getElementById("demo").innerHTML = x;
 var props = {
     outputType: jsPDFInvoiceTemplate.OutputType.Save,
