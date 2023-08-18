@@ -42,7 +42,7 @@
             <div class="absolute h-full top-0" style="width: 684px; height: 956.63px; margin: 108px ">
                 <div class="flex flex-col justify-center items-center">
                     <h1 class="font-bold calibri text-lg pt-6">SURAT TUGAS</h1>
-                    <p class="times">Nomor: 1833.STg/KLH.02.01/IC010110/2023</p>
+                    <p class="times">Nomor: {{ Session::get('nosurat') }}.STg/KLH.02.01/IC010110/2023</p>
                 </div>
                 <div class="calibri pt-5">
                     <h2>Yang bertanda tangan di bawah ini :</h2>

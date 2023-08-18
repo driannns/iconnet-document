@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\NoSurat;
 
 class PdfController extends Controller
 {
@@ -12,7 +13,9 @@ class PdfController extends Controller
     }
 
     public function create(Request $request){
-        // $date = now()->format('Y-m-d');
+        // dd($request->all());
+        $nosurat = NoSurat::find(1);
+        $nomorsurat = $nosurat->nosurat + 1;
         $date = Carbon::parse(now()->format('Y-m-d'));
         $formattedDate = $date->format('d F Y');
         $monthNames = [
@@ -30,6 +33,11 @@ class PdfController extends Controller
             'December' => 'Desember',
         ];
         $formattedDate = strtr($formattedDate, $monthNames);
+
+        $nosurat->update([
+            'nosurat' => $nomorsurat
+        ]);
+
         session(
             ['petugas' => $request->petugas,
             'nomor' => $request->nomor,
@@ -37,7 +45,9 @@ class PdfController extends Controller
             'lokasi' => $request->lokasi,
             'dari' => $request->dari,
             'sampai' => $request->sampai,
-            'date' => $formattedDate],
+            'date' => $formattedDate,
+            'nosurat' => $nosurat->nosurat
+            ]
         );
 
         return view("surattugas");

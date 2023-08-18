@@ -30,9 +30,9 @@
                         <div class="col-span-2">
                             <input class="input bg-transparent w-full input-bordered border-2 mb-1" type="text" name="petugas" placeholder="Nama Petugas" required />
                         </div>
-                        <div class="col-span-3">
-                            <input class="input bg-transparent input-bordered border-2 mb-1" type="tel" name="nomor" placeholder="No Handphone" required />
-                            <button class="btn-add-input" onclick="addEmailField()" type="button">
+                        <div class="col-span-3 flex">
+                            <input class="input bg-transparent input-bordered border-2 mb-1 w-2/3" type="tel" name="nomor" placeholder="No Handphone" required />
+                            <button class="btn-add-input mx-2 text-xl font-bold" onclick="addEmailField()" type="button">
                                 +
                             </button>
                         </div>
@@ -170,17 +170,23 @@
 
         // Add Class to main wrapper
         nef_wrapper.classList.add("col-span-2");
-        fen_wrapper.classList.add("col-span-2");
+        fen_wrapper.classList.add("col-span-3");
 
         // set button ADD
         btnAdd.type = "button";
         btnAdd.classList.add("btn-add-input");
+        btnAdd.classList.add("mx-2");
+        btnAdd.classList.add("text-xl");
+        btnAdd.classList.add("font-bold");
         btnAdd.innerText = "+";
         btnAdd.setAttribute("onclick", "addEmailField()");
-
+        
         // set button DEL
         btnDel.type = "button";
         btnDel.classList.add("btn-del-input");
+        btnAdd.classList.add("mx-2");
+        btnAdd.classList.add("text-xl");
+        btnAdd.classList.add("font-bold");
         btnDel.innerText = "-";
 
         // set Input field
@@ -191,7 +197,7 @@
         nef.classList.add("input");
         nef.classList.add("bg-transparent");
         nef.classList.add("input-bordered");
-        nef.classList.add("col-span-2");
+        nef.classList.add("w-full");
         nef.classList.add("mb-2");
         nef.classList.add("border-2");
 
@@ -202,7 +208,7 @@
         fen.classList.add("input");
         fen.classList.add("bg-transparent");
         fen.classList.add("input-bordered");
-        fen.classList.add("col-span-2");
+        fen.classList.add("w-8/12");
         fen.classList.add("mb-2");
         fen.classList.add("border-2");
 
