@@ -1,43 +1,37 @@
-<style>
-    input::-webkit-calendar-picker-indicator {
-        filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
-    }
-
-    @media print {
-        .no-print {
-            display: none;
-        }
-    }
-    
-    </style>
 <x-app-layout>
     <div class="bg-white m-5 p-10 rounded-lg text-black">
         <h1 class="font-bold text-xl">Surat Tugas</h1>
         <form action="{{route('pdf.create')}}" method="post">
             @csrf
-            <!-- <div class="form-control w-9/12">
-                <label class="label">
-                    <span class="label-text">Tanggal</span>
-                </label>
-                <input type="date" id="tanggal" placeholder="Tanggal Pembuatan Surat" class="input bg-transparent input-bordered border-2 w-9/12" />
-            </div> -->
-            <div class="form-control w-9/12">
+            <input class="bg-white text-black border-none font-bold w-10 text-center" type="text" id="myNumber" value="1"
+                name="myNumber" min="0">
+            <div class="form-control w-9/12" id="formfield">
                 <label class="label">
                     <span class="label-text">Nama Petugas</span>
                 </label>
-                <fieldset class="inputs-set" class="input-field">
-                    <div  id="email-list" class="email-input__w grid grid-cols-5 grid-flow-row-dense w-9/12 gap-2">
-                        <div class="col-span-2">
-                            <input class="input bg-transparent w-full input-bordered border-2 mb-1" type="text" name="petugas" placeholder="Nama Petugas" required />
-                        </div>
-                        <div class="col-span-3 flex">
-                            <input class="input bg-transparent input-bordered border-2 mb-1 w-2/3" type="tel" name="nomor" placeholder="No Handphone" required />
-                            <button class="btn-add-input mx-2 text-xl font-bold" onclick="addEmailField()" type="button">
-                                +
-                            </button>
-                        </div>
-                    </div>
-                </fieldset>
+                <div id="email-list" class="email-input__w grid grid-cols-2 grid-flow-row-dense w-9/12 gap-2">
+
+                    <input class="w-full input bg-transparent input-bordered border-2 mb-1" type="text" name="petugas0"
+                        placeholder="Nama Petugas" required />
+
+
+                    <input class="w-full input bg-transparent input-bordered border-2 mb-1 " type="tel" name="handphone0"
+                        placeholder="No Handphone" required />
+
+                </div>
+                <div class="flex">
+
+                    <button onclick="add()"
+                        class="btn-add-input mx-2 text-xl font-bold bg-slate-400 w-1/12 rounded-sm text-white"
+                        onclick="addEmailField()" type="button">
+                        +
+                    </button>
+                    <button onclick="remove()"
+                        class="btn-add-input mx-2 text-xl font-bold bg-slate-400 w-1/12 rounded-sm text-white"
+                        onclick="addEmailField()" type="button">
+                        -
+                    </button>
+                </div>
                 <!-- <input type="text" id="petugas" name="petugas" placeholder="Nama Petugas"
                     class="input bg-transparent input-bordered border-2 w-9/12" /> -->
             </div>
@@ -156,83 +150,125 @@
         });
 
     });
-    const myForm = document.getElementById("email-list");
+    var formfield = document.getElementById('email-list');
     var counter = 0;
-    function addEmailField() {
+
+    function add() {
         counter++
-        // Create elements
-        const nef_wrapper = document.createElement("div");
-        const fen_wrapper = document.createElement("div");
-        const nef = document.createElement("input");
-        const fen = document.createElement("input");
-        const btnAdd = document.createElement("button");
-        const btnDel = document.createElement("button");
+        var newPetugas = document.createElement('input');
+        var newHandphone = document.createElement('input');
+        var value = parseInt(document.getElementById('myNumber').value, 10);
 
-        // Add Class to main wrapper
-        nef_wrapper.classList.add("col-span-2");
-        fen_wrapper.classList.add("col-span-3");
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('myNumber').value = value;
 
-        // set button ADD
-        btnAdd.type = "button";
-        btnAdd.classList.add("btn-add-input");
-        btnAdd.classList.add("mx-2");
-        btnAdd.classList.add("text-xl");
-        btnAdd.classList.add("font-bold");
-        btnAdd.innerText = "+";
-        btnAdd.setAttribute("onclick", "addEmailField()");
-        
-        // set button DEL
-        btnDel.type = "button";
-        btnDel.classList.add("btn-del-input");
-        btnAdd.classList.add("mx-2");
-        btnAdd.classList.add("text-xl");
-        btnAdd.classList.add("font-bold");
-        btnDel.innerText = "-";
+        newPetugas.setAttribute('type', 'text');
+        newPetugas.setAttribute('name', `petugas${counter}`);
+        newPetugas.setAttribute("required", "");
+        newPetugas.classList.add("input");
+        newPetugas.classList.add("bg-transparent");
+        newPetugas.classList.add("input-bordered");
+        newPetugas.classList.add("w-full");
+        newPetugas.classList.add("mb-2");
+        newPetugas.classList.add("border-2");
+        newPetugas.setAttribute('placeholder', 'Nama Petugas');
 
-        // set Input field
-        nef.type = "text";
-        nef.name = "petugas" + counter;
-        nef.setAttribute("required", "");
-        nef.placeholder = "Nama Petugas " + counter;
-        nef.classList.add("input");
-        nef.classList.add("bg-transparent");
-        nef.classList.add("input-bordered");
-        nef.classList.add("w-full");
-        nef.classList.add("mb-2");
-        nef.classList.add("border-2");
-
-        fen.type = "tel";
-        fen.name = "handphone" + counter;
-        fen.setAttribute("required", "");
-        fen.placeholder = "No Handphone " + counter;
-        fen.classList.add("input");
-        fen.classList.add("bg-transparent");
-        fen.classList.add("input-bordered");
-        fen.classList.add("w-8/12");
-        fen.classList.add("mb-2");
-        fen.classList.add("border-2");
-
-        //append elements to main wrapper
-        nef_wrapper.appendChild(nef);
-        fen_wrapper.appendChild(fen);
-        nef_wrapper.appendChild(btnAdd);
-        fen_wrapper.appendChild(btnAdd);
-        nef_wrapper.appendChild(btnDel);
-        fen_wrapper.appendChild(btnDel);
-
-        // append element to DOM
-        myForm.appendChild(nef_wrapper);
-        myForm.appendChild(fen_wrapper);
-        btnDel.addEventListener("click", removeEmailField);
+        newHandphone.setAttribute('type', 'tel');
+        newHandphone.setAttribute('name', `handphone${counter}`);
+        newHandphone.setAttribute("required", "");
+        newHandphone.classList.add("input");
+        newHandphone.classList.add("bg-transparent");
+        newHandphone.classList.add("input-bordered");
+        newHandphone.classList.add("w-full");
+        newHandphone.classList.add("mb-2");
+        newHandphone.classList.add("border-2");
+        newHandphone.setAttribute('placeholder', 'No Handphone');
+        formfield.appendChild(newPetugas);
+        formfield.appendChild(newHandphone);
     }
 
-    //remove element from DOM
-    function removeEmailField(el) {
-        counter--;
-        const field = el.target.parentElement;
-        const nefWrapper = field.previousElementSibling;
-        field.remove();
-        nefWrapper.remove();
+    function remove() {
+        var value = parseInt(document.getElementById('myNumber').value, 10);
+
+        value = isNaN(value) ? 0 : value;
+        value = value > 1 ? value - 1 : 1;;
+        document.getElementById('myNumber').value = value;
+
+        counter--
+        var input_tags = formfield.getElementsByTagName('input');
+        if (input_tags.length > 2) {
+            // const newHandphone = field.previousElementSibling;
+            // const field = el.target.parentElement;
+            // newHandphone.remove()
+            formfield.removeChild(input_tags[(input_tags.length) - 1]);
+            formfield.removeChild(input_tags[(input_tags.length) - 1]);
+        }
     }
+
+    // const myForm = document.getElementById("email-list");
+    // var currentNumber =  document.getElementById('myNumber');
+    // function addEmailField() {
+    //     counter++
+    //     currentNumber.innerHTML = counter
+    //     // Create elements
+    //     const nef_wrapper = document.createElement("div");
+    //     const fen_wrapper = document.createElement("div");
+    //     const nef = document.createElement("input");
+    //     const fen = document.createElement("input");
+    //     const btnAdd = document.createElement("button");
+    //     const btnDel = document.createElement("button");
+
+    //     // Add Class to main wrapper
+    //     nef_wrapper.classList.add("col-span-2");
+    //     fen_wrapper.classList.add("col-span-3");
+
+    //     // set button ADD
+    //     btnAdd.type = "button";
+    //     btnAdd.classList.add("btn-add-input");
+    //     btnAdd.classList.add("mx-2");
+    //     btnAdd.classList.add("text-xl");
+    //     btnAdd.classList.add("font-bold");
+    //     btnAdd.innerText = "+";
+    //     btnAdd.setAttribute("onclick", "addEmailField()");
+
+    //     // set button DEL
+    //     btnDel.type = "button";
+    //     btnDel.classList.add("btn-del-input");
+    //     btnAdd.classList.add("mx-2");
+    //     btnAdd.classList.add("text-xl");
+    //     btnAdd.classList.add("font-bold");
+    //     btnDel.innerText = "-";
+
+    //     // set Input field
+    //     nef.type = "text";
+    //     nef.name = "petugas" + counter;
+    //     nef.setAttribute("required", "");
+    //     nef.placeholder = "Nama Petugas " + counter;
+
+
+    //     //append elements to main wrapper
+    //     nef_wrapper.appendChild(nef);
+    //     fen_wrapper.appendChild(fen);
+    //     nef_wrapper.appendChild(btnAdd);
+    //     fen_wrapper.appendChild(btnAdd);
+    //     nef_wrapper.appendChild(btnDel);
+    //     fen_wrapper.appendChild(btnDel);
+
+    //     // append element to DOM
+    //     myForm.appendChild(nef_wrapper);
+    //     myForm.appendChild(fen_wrapper);
+    //     btnDel.addEventListener("click", removeEmailField);
+    // }
+
+    // //remove element from DOM
+    // function removeEmailField(el) {
+    //     counter--;
+    //     const field = el.target.parentElement;
+    //     const nefWrapper = field.previousElementSibling;
+    //     field.remove();
+    //     nefWrapper.remove();
+    // }
+    // currentNumber.innerHTML = counter
 
 </script>

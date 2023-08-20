@@ -42,7 +42,7 @@
             <div class="absolute h-full top-0" style="width: 684px; height: 956.63px; margin: 108px ">
                 <div class="flex flex-col justify-center items-center">
                     <h1 class="font-bold calibri text-lg pt-6">SURAT TUGAS</h1>
-                    <p class="times">Nomor: {{ Session::get('nosurat') }}.STg/KLH.02.01/IC010110/2023</p>
+                    <p class="times">Nomor: {{ Session::get('nosurat') }}.STg/KLH.02.01/IC010110/{{ Session::get('year') }}</p>
                 </div>
                 <div class="calibri pt-5">
                     <h2>Yang bertanda tangan di bawah ini :</h2>
@@ -64,16 +64,13 @@
                             <th class="border border-black">No. Hp</th>
                         </thead>
                         <tbody class="text-center">
-                            <tr>
-                                <td class="border border-black">1</td>
-                                <td class="border border-black">{{ Session::get('petugas')}}</td>
-                                <td class="border border-black">{{ Session::get('nomor') }}</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-black">2</td>
-                                <td class="border border-black">Novriansyah</td>
-                                <td class="border border-black">083150823330</td>
-                            </tr>
+                            @for($i = 0; $i < Session::get('number'); $i++)
+                                <tr>
+                                    <td class="border border-black">{{ $i+1 }}</td>
+                                    <td class="border border-black">{{ Session::get("petugas{$i}")}}</td>
+                                    <td class="border border-black">{{ Session::get("nomor{$i}") }}</td>
+                                </tr>
+                            @endfor
                         </tbody>
                     </table>
                 </div>

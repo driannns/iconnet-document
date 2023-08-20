@@ -16,8 +16,17 @@ class PdfController extends Controller
         // dd($request->all());
         $nosurat = NoSurat::find(1);
         $nomorsurat = $nosurat->nosurat + 1;
+        $counter = 0;
+
         $date = Carbon::parse(now()->format('Y-m-d'));
         $formattedDate = $date->format('d F Y');
+        $year = $date->format('Y');
+        for ($i = 0; $i < $request->myNumber; $i++){
+            session([
+                "petugas{$i}" => $request->input("petugas{$i}"),
+                "nomor{$i}" => $request->input("handphone{$i}")
+            ]);
+        }
         $monthNames = [
             'January' => 'Januari',
             'February' => 'Februari',
@@ -33,23 +42,24 @@ class PdfController extends Controller
             'December' => 'Desember',
         ];
         $formattedDate = strtr($formattedDate, $monthNames);
-
+        
         $nosurat->update([
             'nosurat' => $nomorsurat
         ]);
-
+        
         session(
-            ['petugas' => $request->petugas,
-            'nomor' => $request->nomor,
+            [
+            'number' => $request->myNumber,
             'jenis' => $request->jenis,
             'lokasi' => $request->lokasi,
             'dari' => $request->dari,
             'sampai' => $request->sampai,
             'date' => $formattedDate,
-            'nosurat' => $nosurat->nosurat
+            'nosurat' => $nosurat->nosurat,
+            'year' => $year
             ]
         );
 
-        return view("surattugas");
+        return view("surattugas", compact('counter'));
     }
 }
