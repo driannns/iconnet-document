@@ -13,11 +13,10 @@ class PdfController extends Controller
     }
 
     public function create(Request $request){
-        // dd($request->all());
         $nosurat = NoSurat::find(1);
         $nomorsurat = $nosurat->nosurat + 1;
         $counter = 0;
-
+        
         $date = Carbon::parse(now()->format('Y-m-d'));
         $formattedDate = $date->format('d F Y');
         $year = $date->format('Y');
@@ -41,8 +40,8 @@ class PdfController extends Controller
             'November' => 'November',
             'December' => 'Desember',
         ];
+        $formattedMonth = $date->format('m');
         $formattedDate = strtr($formattedDate, $monthNames);
-        
         $nosurat->update([
             'nosurat' => $nomorsurat
         ]);
@@ -54,12 +53,14 @@ class PdfController extends Controller
             'lokasi' => $request->lokasi,
             'dari' => $request->dari,
             'sampai' => $request->sampai,
+            'divisi' => $request->divisi,
+            'month' => $formattedMonth,
             'date' => $formattedDate,
             'nosurat' => $nosurat->nosurat,
             'year' => $year
             ]
         );
-
+        // dd(session()->all());
         return view("surattugas", compact('counter'));
     }
 }

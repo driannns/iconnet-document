@@ -3,9 +3,21 @@
         <h1 class="font-bold text-xl">Surat Tugas</h1>
         <form action="{{route('pdf.create')}}" method="post">
             @csrf
-            <input class="bg-white text-black border-none font-bold w-10 text-center" type="text" id="myNumber" value="1"
+            <input class="bg-white text-black border-none font-bold w-10 text-center" type="hidden" id="myNumber" value="1"
                 name="myNumber" min="0">
             <div class="form-control w-9/12" id="formfield">
+
+                <label class="label">
+                    <span class="label-text">Divisi Petugas</span>
+                </label>
+                <select name="divisi" id="divisi" class="w-9/12 input bg-transparent input-bordered border-2 mb-1" required>
+                    <option value="">Pilih Divisi</option>
+                    <option value="har">HAR</option>
+                    <option value="aktv">Aktivasi</option>
+                    <option value="sls">Sales</option>
+                </select>
+                </div>
+                <div class="form-control w-9/12" id="formfield">
                 <label class="label">
                     <span class="label-text">Nama Petugas</span>
                 </label>
