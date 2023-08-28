@@ -32,6 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
     Route::post('/pdf', [PdfController::class, 'create'])->name('pdf.create');
 
+    Route::get('/history', [PdfController::class, 'history'])->name('history.index');
+
+    Route::post('/preview', [PdfController::class, 'preview'])->name('preview.index');
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

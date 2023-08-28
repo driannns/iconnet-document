@@ -1,34 +1,31 @@
 <x-app-layout>
-    <div class="bg-white m-5 p-10 rounded-lg text-black">
+    <div class="bg-white m-5 p-10  rounded-lg text-black">
         <h1 class="font-bold text-xl">Surat Tugas</h1>
         <form action="{{route('pdf.create')}}" method="post">
             @csrf
-            <input class="bg-white text-black border-none font-bold w-10 text-center" type="hidden" id="myNumber" value="1"
-                name="myNumber" min="0">
+            <input class="bg-white text-black border-none font-bold w-10 text-center" type="text" id="myNumber"
+                value="1" name="myNumber" min="0">
             <div class="form-control w-9/12" id="formfield">
 
                 <label class="label">
                     <span class="label-text">Divisi Petugas</span>
                 </label>
-                <select name="divisi" id="divisi" class="w-9/12 input bg-transparent input-bordered border-2 mb-1" required>
+                <select name="divisi" id="divisi" class="w-9/12 input bg-transparent input-bordered border-2 mb-1"
+                    required>
                     <option value="">Pilih Divisi</option>
-                    <option value="har">HAR</option>
+                    <option value="plh">Pemeliharaan</option>
                     <option value="aktv">Aktivasi</option>
                     <option value="sls">Sales</option>
                 </select>
-                </div>
-                <div class="form-control w-9/12" id="formfield">
+            </div>
+            <div class="form-control w-9/12" id="formfield">
                 <label class="label">
-                    <span class="label-text">Nama Petugas</span>
+                    <span class="label-text">Nama Karyawan</span>
                 </label>
-                <div id="email-list" class="email-input__w grid grid-cols-2 grid-flow-row-dense w-9/12 gap-2">
+                <div id="email-list" class="email-input__w flex flex-col gap-2">
 
-                    <input class="w-full input bg-transparent input-bordered border-2 mb-1" type="text" name="petugas0"
-                        placeholder="Nama Petugas" required />
-
-
-                    <input class="w-full input bg-transparent input-bordered border-2 mb-1 " type="tel" name="handphone0"
-                        placeholder="No Handphone" required />
+                    <input class="w-9/12 input bg-transparent input-bordered border-2 mb-1" type="text" name="petugas0"
+                        placeholder="Nama Karyawan" required />
 
                 </div>
                 <div class="flex">
@@ -138,37 +135,54 @@
                     </div>
                 </div>
             </div>
+            <div class="form-control w-9/12">
+                <label class="label">
+                    <span class="label-text">Keterangan</span>
+                </label>
+                <input type="text" id="keterangan" name="keterangan" placeholder="Keterangan"
+                    class="input bg-transparent input-bordered border-2 w-9/12" />
+            </div>
             <button class="btn btn-wide mt-5" type="submit">Submit</button>
         </form>
-        <button class="px-2 py-1 bg-gray-100 m-2 rounded-md" id="btn-print">Generate PDF</button>
+        <!-- <button class="px-2 py-1 bg-gray-100 m-2 rounded-md" id="btn-print">Generate PDF</button>
+        <button class="px-2 py-1 bg-gray-100 m-2 rounded-md" id="btn-two">Generate PDF</button> -->
 
     </div>
-    <iframe src="/pdf" id="frame" style="width: 100%; border:0; height:0;" class="m-0 p-0"></iframe>
+    @if(!empty($message))
+    <div id="alert-1"
+        class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 w-fit absolute right-0 bottom-0 mr-10"
+        role="alert">
+        <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+            viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div class="ml-3 text-sm font-medium w-fit">
+            Dokumen sudah bisa didownload di button "Generate PDF" di bawah kiri!
+        </div>
+        <button type="button"
+            class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
+            data-dismiss-target="#alert-1" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+        </button>
+    </div>
+    @endif
+    <!-- <iframe src="/pdf" id="frame" style="width: 100%; border:0; height:0;" class="m-0 p-0"></iframe> -->
 </x-app-layout>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
-    jQuery(document).ready(function () {
-        // 
-        $('#btn-print').click(function () {
-            let wspFrame = document.getElementById('frame').contentWindow;
-            let printOptions = {
-                pages: "1",
-                // Other print options can be added here
-            };
-
-            wspFrame.focus();
-            wspFrame.print(printOptions);
-            // window.print();
-        });
-
-    });
     var formfield = document.getElementById('email-list');
     var counter = 0;
 
     function add() {
         counter++
         var newPetugas = document.createElement('input');
-        var newHandphone = document.createElement('input');
+        // var newHandphone = document.createElement('input');
         var value = parseInt(document.getElementById('myNumber').value, 10);
 
         value = isNaN(value) ? 0 : value;
@@ -181,23 +195,23 @@
         newPetugas.classList.add("input");
         newPetugas.classList.add("bg-transparent");
         newPetugas.classList.add("input-bordered");
-        newPetugas.classList.add("w-full");
+        newPetugas.classList.add("w-9/12");
         newPetugas.classList.add("mb-2");
         newPetugas.classList.add("border-2");
-        newPetugas.setAttribute('placeholder', 'Nama Petugas');
+        newPetugas.setAttribute('placeholder', 'Nama Karyawan');
 
-        newHandphone.setAttribute('type', 'tel');
-        newHandphone.setAttribute('name', `handphone${counter}`);
-        newHandphone.setAttribute("required", "");
-        newHandphone.classList.add("input");
-        newHandphone.classList.add("bg-transparent");
-        newHandphone.classList.add("input-bordered");
-        newHandphone.classList.add("w-full");
-        newHandphone.classList.add("mb-2");
-        newHandphone.classList.add("border-2");
-        newHandphone.setAttribute('placeholder', 'No Handphone');
+        // newHandphone.setAttribute('type', 'tel');
+        // newHandphone.setAttribute('name', `handphone${counter}`);
+        // newHandphone.setAttribute("required", "");
+        // newHandphone.classList.add("input");
+        // newHandphone.classList.add("bg-transparent");
+        // newHandphone.classList.add("input-bordered");
+        // newHandphone.classList.add("w-full");
+        // newHandphone.classList.add("mb-2");
+        // newHandphone.classList.add("border-2");
+        // newHandphone.setAttribute('placeholder', 'No Handphone');
         formfield.appendChild(newPetugas);
-        formfield.appendChild(newHandphone);
+        // formfield.appendChild(newHandphone);
     }
 
     function remove() {
@@ -209,78 +223,13 @@
 
         counter--
         var input_tags = formfield.getElementsByTagName('input');
-        if (input_tags.length > 2) {
+        if (input_tags.length > 1) {
             // const newHandphone = field.previousElementSibling;
             // const field = el.target.parentElement;
             // newHandphone.remove()
             formfield.removeChild(input_tags[(input_tags.length) - 1]);
-            formfield.removeChild(input_tags[(input_tags.length) - 1]);
+            // formfield.removeChild(input_tags[(input_tags.length) - 1]);
         }
     }
-
-    // const myForm = document.getElementById("email-list");
-    // var currentNumber =  document.getElementById('myNumber');
-    // function addEmailField() {
-    //     counter++
-    //     currentNumber.innerHTML = counter
-    //     // Create elements
-    //     const nef_wrapper = document.createElement("div");
-    //     const fen_wrapper = document.createElement("div");
-    //     const nef = document.createElement("input");
-    //     const fen = document.createElement("input");
-    //     const btnAdd = document.createElement("button");
-    //     const btnDel = document.createElement("button");
-
-    //     // Add Class to main wrapper
-    //     nef_wrapper.classList.add("col-span-2");
-    //     fen_wrapper.classList.add("col-span-3");
-
-    //     // set button ADD
-    //     btnAdd.type = "button";
-    //     btnAdd.classList.add("btn-add-input");
-    //     btnAdd.classList.add("mx-2");
-    //     btnAdd.classList.add("text-xl");
-    //     btnAdd.classList.add("font-bold");
-    //     btnAdd.innerText = "+";
-    //     btnAdd.setAttribute("onclick", "addEmailField()");
-
-    //     // set button DEL
-    //     btnDel.type = "button";
-    //     btnDel.classList.add("btn-del-input");
-    //     btnAdd.classList.add("mx-2");
-    //     btnAdd.classList.add("text-xl");
-    //     btnAdd.classList.add("font-bold");
-    //     btnDel.innerText = "-";
-
-    //     // set Input field
-    //     nef.type = "text";
-    //     nef.name = "petugas" + counter;
-    //     nef.setAttribute("required", "");
-    //     nef.placeholder = "Nama Petugas " + counter;
-
-
-    //     //append elements to main wrapper
-    //     nef_wrapper.appendChild(nef);
-    //     fen_wrapper.appendChild(fen);
-    //     nef_wrapper.appendChild(btnAdd);
-    //     fen_wrapper.appendChild(btnAdd);
-    //     nef_wrapper.appendChild(btnDel);
-    //     fen_wrapper.appendChild(btnDel);
-
-    //     // append element to DOM
-    //     myForm.appendChild(nef_wrapper);
-    //     myForm.appendChild(fen_wrapper);
-    //     btnDel.addEventListener("click", removeEmailField);
-    // }
-
-    // //remove element from DOM
-    // function removeEmailField(el) {
-    //     counter--;
-    //     const field = el.target.parentElement;
-    //     const nefWrapper = field.previousElementSibling;
-    //     field.remove();
-    //     nefWrapper.remove();
-    // }
-    // currentNumber.innerHTML = counter
 
 </script>

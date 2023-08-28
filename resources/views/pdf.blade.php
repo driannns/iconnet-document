@@ -16,6 +16,11 @@
     <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
     <!-- <script src="js/index.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .times {
@@ -28,81 +33,103 @@
         .calibri {
             font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
         }
-        @page{
-            margin:0;
+
+        @page {
+            margin: 0;
         }
 
     </style>
 </head>
 
 <body class="h-fit w-full flex justify-center text-black">
-    <div class="h-fit w-full flex justify-center">
-        <div class="relative">
-            <img class="" src="assets/template.png" alt="" width="900px">
-            <div class="absolute h-full top-0" style="width: 684px; height: 956.63px; margin: 108px ">
-                <div class="flex flex-col justify-center items-center">
-                    <h1 class="font-bold calibri text-lg pt-6">SURAT TUGAS</h1>
-                    <p class="times">Nomor: {{ Session::get('nosurat') }}/stg/{{ Session::get('month') }}/{{ Session::get('year') }}</p>
+    <!-- <button id="btn-one" class="bg-red-400 text-white rounded-md px-3 py-1 h-fit">Download PDF</button> -->
+    <div class="relative" id="content">
+        <img src="assets/template.png" alt="" width="900px" height="1160px" style="height: 1050px;">
+        <div class="absolute h-full top-0" style="width: 684px; height: 956.63px; margin: 108px ">
+            <div class="flex flex-col justify-center items-center">
+                <h1 class="font-bold calibri text-lg pt-6">SURAT TUGAS</h1>
+                <p class="times">Nomor: {{ Session::get('nosurat') }}</p>
+            </div>
+            <div class="calibri pt-5">
+                <h2>Yang bertanda tangan di bawah ini :</h2>
+                <div class="flex pl-3">
+                    <p class="w-4/12">Nama</p>
+                    <p>Erdi Karsa Notowibowo</p>
                 </div>
-                <div class="calibri pt-5">
-                    <h2>Yang bertanda tangan di bawah ini :</h2>
-                    <div class="flex pl-3">
-                        <p class="w-4/12">Nama</p>
-                        <p>Erdi Karsa Notowibowo</p>
-                    </div>
-                    <div class="flex pl-3">
-                        <p class="w-4/12">Jabatan</p>
-                        <p>Manager Kantor Perwakilan Kalimantan Selatan</p>
-                    </div>
+                <div class="flex pl-3">
+                    <p class="w-4/12">Jabatan</p>
+                    <p>Manager Kantor Perwakilan Kalimantan Selatan</p>
                 </div>
-                <div class="calibri pt-6">
-                    <h2 class="pb-4">Menugaskan kepada :</h2>
-                    <table class="w-11/12 border border-black mx-auto">
-                        <thead class="bg-[#708fb5]">
-                            <th class="border border-black">No</th>
-                            <th class="border border-black">Nama</th>
-                            <th class="border border-black">No. Hp</th>
-                        </thead>
-                        <tbody class="text-center">
-                            @for($i = 0; $i < Session::get('number'); $i++)
-                                <tr>
-                                    <td class="border border-black">{{ $i+1 }}</td>
-                                    <td class="border border-black">{{ Session::get("petugas{$i}")}}</td>
-                                    <td class="border border-black">{{ Session::get("nomor{$i}") }}</td>
-                                </tr>
+            </div>
+            <div class="calibri pt-6">
+                <h2 class="pb-4">Menugaskan kepada :</h2>
+                <table class="w-11/12 border border-black mx-auto">
+                    <thead class="bg-[#708fb5]">
+                        <th class="border border-black p-0 m-0">No</th>
+                        <th class="border border-black p-0 m-0">Nama</th>
+                    </thead>
+                    <tbody class="text-center">
+                        @for($i = 0; $i < Session::get('number'); $i++) <tr>
+                            <td class="border border-black p-0 m-0">{{ $i+1 }}</td>
+                            <td class="border border-black p-0 m-0">{{ Session::get("petugas{$i}")}}</td>
+                            </tr>
                             @endfor
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
+            </div>
+            <div class="calibri pt-6">
+                <h2>Untuk melaksanakan tugas sebagai berikut: </h2>
+                <div class="flex pl-3">
+                    <p class="w-4/12">Jenis Pekerjaan</p>
+                    <p>: {{ Session::get('jenis')}}</p>
                 </div>
-                <div class="calibri pt-6">
-                    <h2>Untuk melaksanakan tugas sebagai berikut: </h2>
-                    <div class="flex pl-3">
-                        <p class="w-4/12">Jenis Pekerjaan</p>
-                        <p>: {{ Session::get('jenis')}}</p>
-                    </div>
-                    <div class="flex pl-3">
-                        <p class="w-4/12">Lokasi Pekerjaan</p>
-                        <p>: {{ Session::get('lokasi')}}</p>
-                    </div>
-                    <div class="flex pl-3">
-                        <p class="w-4/12">Waktu Pengerjaan</p>
-                        <p>: {{ Session::get('dari')}}  S/d {{ Session::get('sampai')}}</p>
-                    </div>
+                <div class="flex pl-3">
+                    <p class="w-4/12">Lokasi Pekerjaan</p>
+                    <p>: {{ Session::get('lokasi')}}</p>
                 </div>
-                <div class="calibri">
-                    <h2>Surat Tugas ini dibuat untuk dilaksanakan sebaik-baiknya. </h2>
+                <div class="flex pl-3">
+                    <p class="w-4/12">Waktu Pengerjaan</p>
+                    <p>: {{ Session::get('waktu')}}</p>
                 </div>
-                <div class="calibri pt-6">
-                    <h2>Banjarbaru,  {{ Session::get('date') }}</h2>
+                <div class="flex pl-3">
+                    <p class="w-4/12">Keterangan</p>
+                    @if(!empty( Session::get('keterangan')))
+                    <p>: {{ Session::get('keterangan')}}</p>
+                    @else
+                    <p>: -</p>
+                    @endif
                 </div>
-                <div class="pt-6">
-                    <h2>Manager Kantor Perwakilan Kalsel</h2>
-                    <img src="assets/sign.png" alt="" style="width: 115px">
-                    <h2 class="-mt-4">Erdi Karsa Notowibowo</h2>
-                </div>
+            </div>
+            <div class="calibri">
+                <h2>Surat Tugas ini dibuat untuk dilaksanakan sebaik-baiknya. </h2>
+            </div>
+            <div class="calibri pt-6">
+                <h2>Banjarbaru, {{ Session::get('date') }}</h2>
+            </div>
+            <div class="pt-6">
+                <h2>Manager Kantor Perwakilan Kalsel</h2>
+                <img src="assets/sign.png" alt="" style="width: 115px">
+                <h2 class="-mt-4">Erdi Karsa Notowibowo</h2>
             </div>
         </div>
     </div>
+    <script>
+        jQuery(document).ready(function () {
+            $('#btn-one').click(function () {
+
+                html2canvas(document.querySelector('#content')).then((canvas) => {
+                    let base64image = canvas.toDataURL('image/png');
+                    console.log(base64image);
+
+                    let pdf = new jsPDF('p', 'px', [900, 1050]);
+                    pdf.addImage(base64image, 'PNG', 0, 0, 900, 1050);
+                    pdf.save('webty');
+                });
+
+            });
+        });
+
+    </script>
 </body>
 
 </html>
