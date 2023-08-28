@@ -6,41 +6,47 @@
                 <!-- head -->
                 <thead>
                     <tr class="text-black">
-                        <th>Tanggal</th>
-                        <th>No Surat</th>
-                        <th>Divisi</th>
-                        <th>Nama Karyawan</th>
-                        <th>Jenis Pekerjaan</th>
-                        <th>Lokasi Pekerjaan</th>
-                        <th>Waktu Pengerjaan</th>
-                        <th>Preview</th>
+                        <th class="text-center">Tanggal</th>
+                        <th class="text-center">No Surat</th>
+                        <th class="text-center">Divisi</th>
+                        <th class="text-center">Nama Karyawan</th>
+                        <th class="text-center">Jenis Pekerjaan</th>
+                        <th class="text-center">Lokasi Pekerjaan</th>
+                        <th class="text-center">Waktu Pengerjaan</th>
+                        <th class="text-center">Preview</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- row 1 -->
-                    @foreach($history as $data)
+                    @php
+                    $n=1;
+                    @endphp
+                    @foreach($history as $key => $data)
                     <form method="post" action="{{ route('preview.index') }}">
                         @csrf
                         <tr>
-                            <th><input type="text"
-                                    class="bg-transparent border-0 focus:outline-none focus:border-0 w-fit" name="date"
-                                    value="{{ $data->date }}" readonly></th>
+                        <th class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center" name="date">
+                        {{ $history->firstItem() + $key }}
+                        </th>
                             <td><input type="text"
-                                    class="bg-transparent border-0 focus:outline-none focus:border-0 w-fit"
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center" name="date"
+                                    value="{{ $data->date }}" readonly></td>
+                            <td><input type="text"
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
                                     name="no_surat" value="{{ $data->no_surat }}" readonly></td>
-                            <td><input type="text" class="bg-transparent border-0 focus:outline-none focus:border-0"
+                            <td><input type="text" class="bg-transparent border-0 focus:outline-none focus:border-0 text-center"
                                     name="divisi" value="{{ $data->divisi }}" readonly></td>
                             <td><input type="text"
-                                    class="bg-transparent border-0 focus:outline-none focus:border-0 w-fit"
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
                                     name="nama_karyawan" value="{{ $data->nama_karyawan }}" readonly></td>
                             <td><input type="text"
-                                    class="bg-transparent border-0 focus:outline-none focus:border-0 w-fit"
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
                                     name="jenis_pekerjaan" value="{{ $data->jenis_pekerjaan }}" readonly></td>
                             <td><input type="text"
-                                    class="bg-transparent border-0 focus:outline-none focus:border-0 w-fit"
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
                                     name="lokasi" value="{{ $data->lokasi }}" readonly></td>
                             <td><input type="text"
-                                    class="bg-transparent border-0 focus:outline-none focus:border-0 w-fit" name="waktu"
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center" name="waktu"
                                     value="{{ $data->waktu }}" readonly></td>
                             <td><button type="submit" class="hover:text-blue-500">Preview</button></td>
                         </tr>
@@ -48,13 +54,16 @@
                     @endforeach
                 </tbody>
             </table>
-
-
+            
+            
+        </div>
+        <div class="mt-3">
+            {{ $history->links() }}
         </div>
     </div>
     @if(!empty($message))
     <div id="alert-1"
-        class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 w-fit absolute right-0 bottom-0 mr-10"
+        class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 w-fit fixed right-0 bottom-0 mr-10"
         role="alert">
         <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
             viewBox="0 0 20 20">

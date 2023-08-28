@@ -32,8 +32,6 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
 
-        <iframe src="/pdf" id="frame" style="width: 100%; border:0; height:0;" class="m-0 p-0"></iframe>
-
         <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
             aria-controls="default-sidebar" type="button"
             class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -92,9 +90,9 @@
                         </a>
                     </li>
                 </ul>
-                <button id="btn-print" class="absolute bottom-0 w-11/12 mb-5 flex items-center p-2 mr-3 text-gray-900 rounded-lg
-                    dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                <button id="btn-print" class="absolute bottom-0 w-11/12 mb-5 flex items-center bg-gray-50 p-2 mr-3 text-gray-900 rounded-lg
+                     hover:bg-gray-100 group">
+                    <svg class="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                         <path
                             d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
@@ -111,6 +109,8 @@
             @include('layouts.navigation')
             {{ $slot }}
         </main>
+        <iframe src="/pdf" id="frame" style="wdth: 100%; border:0; height:0;" class="m-0 p-0"></iframe>
+
     </div>
     <script>
         jQuery(document).ready(function () {

@@ -111,14 +111,14 @@ class PdfController extends Controller
             }
             
     public function history(){
-        $history = History::all();
+        $history = History::paginate(10);
         return view('history', compact('history'));
     }
             
     public function preview(Request $request){
         $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','keterangan']);
 
-        $history = History::all();
+         $history = History::paginate(10);
         $waktu = "$request->dari S/d $request->sampai";
 
         $combinedKaryawan = explode(', ', $request->nama_karyawan);
@@ -146,7 +146,7 @@ class PdfController extends Controller
                 ]
             );
 
-            return view("history", compact('history'))->with('message', 'Download PDF');
+            return redirect()->route("history.index")->with('message', 'Download PDF');
 
     }
 }

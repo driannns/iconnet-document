@@ -64,7 +64,7 @@
             <div class="calibri pt-6">
                 <h2 class="pb-4">Menugaskan kepada :</h2>
                 <table class="w-11/12 border border-black mx-auto">
-                    <thead class="bg-[#708fb5]">
+                    <thead class="bg-[#708fb5]" style="background-color: #708fb5;">
                         <th class="border border-black p-0 m-0">No</th>
                         <th class="border border-black p-0 m-0">Nama</th>
                     </thead>
