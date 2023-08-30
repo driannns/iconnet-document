@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pdf', [PdfController::class, 'create'])->name('pdf.create');
 
     Route::get('/history', [PdfController::class, 'history'])->name('history.index');
+    Route::post('/history', [PdfController::class, 'search'])->name('history.search');
 
     Route::post('/preview', [PdfController::class, 'preview'])->name('preview.index');
 

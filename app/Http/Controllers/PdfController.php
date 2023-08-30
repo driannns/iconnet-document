@@ -147,6 +147,17 @@ class PdfController extends Controller
             );
 
             return redirect()->route("history.index")->with('message', 'Download PDF');
+    }
 
+    public function search(Request $request){
+        $history = History::where('no_surat', 'LIKE', '%' . $request->search . '%')
+                            ->orwhere('date',  'LIKE', '%' . $request->search . '%')
+                            ->orwhere('divisi',  'LIKE', '%' . $request->search . '%')
+                            ->orwhere('nama_karyawan',  'LIKE', '%' . $request->search . '%')
+                            ->orwhere('jenis_pekerjaan',  'LIKE', '%' . $request->search . '%')
+                            ->orwhere('lokasi',  'LIKE', '%' . $request->search . '%')
+                            ->orwhere('waktu',  'LIKE', '%' . $request->search . '%')
+                            ->paginate(10);
+        return view('history', compact('history'));
     }
 }

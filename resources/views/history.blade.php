@@ -1,11 +1,27 @@
 <x-app-layout>
     <div class="bg-white m-5 p-10 rounded-lg text-black">
         <h1 class="text-xl font-bold">History</h1>
+        <!-- Search -->
+        <form action="" method="post">
+            @csrf
+            <div class="w-fit pr-2 flex items-center border-2 my-2">
+                <input type="text" name="search" class="border-0 bg-transparent focus:ring-0" placeholder="Search...">
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+
         <div class="overflow-x-auto">
             <table class="table">
                 <!-- head -->
                 <thead>
                     <tr class="text-black">
+                        <th class="text-center">No</th>
                         <th class="text-center">Tanggal</th>
                         <th class="text-center">No Surat</th>
                         <th class="text-center">Divisi</th>
@@ -25,16 +41,18 @@
                     <form method="post" action="{{ route('preview.index') }}">
                         @csrf
                         <tr>
-                        <th class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center" name="date">
-                        {{ $history->firstItem() + $key }}
-                        </th>
+                            <th class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
+                                name="date">
+                                {{ $history->firstItem() + $key }}
+                            </th>
                             <td><input type="text"
-                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center" name="date"
-                                    value="{{ $data->date }}" readonly></td>
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
+                                    name="date" value="{{ $data->date }}" readonly></td>
                             <td><input type="text"
                                     class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
                                     name="no_surat" value="{{ $data->no_surat }}" readonly></td>
-                            <td><input type="text" class="bg-transparent border-0 focus:outline-none focus:border-0 text-center"
+                            <td><input type="text"
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-center"
                                     name="divisi" value="{{ $data->divisi }}" readonly></td>
                             <td><input type="text"
                                     class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
@@ -46,22 +64,22 @@
                                     class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
                                     name="lokasi" value="{{ $data->lokasi }}" readonly></td>
                             <td><input type="text"
-                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center" name="waktu"
-                                    value="{{ $data->waktu }}" readonly></td>
+                                    class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
+                                    name="waktu" value="{{ $data->waktu }}" readonly></td>
                             <td><button type="submit" class="hover:text-blue-500">Preview</button></td>
                         </tr>
                     </form>
                     @endforeach
                 </tbody>
             </table>
-            
-            
+
+
         </div>
         <div class="mt-3">
             {{ $history->links() }}
         </div>
     </div>
-    @if(!empty($message))
+    @if(session('message'))
     <div id="alert-1"
         class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 w-fit fixed right-0 bottom-0 mr-10"
         role="alert">
