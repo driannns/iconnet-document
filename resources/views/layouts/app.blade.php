@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Icon Plus</title>
+    <title>Surat Tugas-{{ Session::get('date') }}</title>
     <link rel="icon" href="assets/logo.png">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -26,6 +26,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
         integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+    </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -117,13 +123,12 @@
             // 
             $('#btn-print').click(function () {
                 let wspFrame = document.getElementById('frame').contentWindow;
-                let printOptions = {
-                    pages: "1",
-                    // Other print options can be added here
-                };
+
+                wspFrame.title = "Custom Print Title";
 
                 wspFrame.focus();
-                wspFrame.print(printOptions);
+                wspFrame.print();
+                // wspFrame.document.title = "Custom Print Title";
                 // window.print();
             });
         });

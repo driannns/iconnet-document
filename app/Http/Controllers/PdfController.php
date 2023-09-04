@@ -14,7 +14,7 @@ class PdfController extends Controller
     }
 
     public function create(Request $request){
-        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','keterangan']);
+        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','tanggalpekerjaan','keterangan']);
         $karyawan = [];
         
         $nosurat = NoSurat::find(1);
@@ -23,6 +23,7 @@ class PdfController extends Controller
         
         $date = Carbon::parse(now()->format('Y-m-d'));
         $formattedDate = $date->format('d F Y');
+        $formattedTanggalPekerjaan = Carbon::parse($request->tanggalpekerjaan)->format('d F Y');
         $year = $date->format('Y');
         for ($i = 0; $i < $request->myNumber; $i++){
             session([
@@ -48,6 +49,7 @@ class PdfController extends Controller
         
         $formattedMonth = $date->format('m');
         $formattedDate = strtr($formattedDate, $monthNames);
+        $formattedTanggalPekerjaan = strtr($formattedTanggalPekerjaan, $monthNames);
         $formattedMonth = str_pad($formattedMonth, 3, '0', STR_PAD_LEFT);
         $waktu = "$request->dari S/d $request->sampai";
 
@@ -61,6 +63,7 @@ class PdfController extends Controller
                     'lokasi' => $request->lokasi,
                     'date' => $formattedDate,
                     'waktu' => $waktu,
+                    'tanggalpekerjaan' => $formattedTanggalPekerjaan,
                     'nosurat' => $formatnosurat,
                     'keterangan' => $request->keterangan
                     ]
@@ -75,6 +78,7 @@ class PdfController extends Controller
                     'jenis_pekerjaan' =>  $request->jenis,
                     'lokasi' => $request->lokasi,
                     'waktu' => $waktu,
+                    'tanggalpekerjaan' => $formattedTanggalPekerjaan,
                     'keterangan' => $request->keterangan,
                 ]);
         } else {
@@ -85,6 +89,7 @@ class PdfController extends Controller
                     'jenis' => $request->jenis,
                     'lokasi' => $request->lokasi,
                     'date' => $formattedDate,
+                    'tanggalpekerjaan' => $formattedTanggalPekerjaan,
                     'waktu' => $waktu,
                     'nosurat' => $formatnosurat,
                     ]
@@ -98,6 +103,7 @@ class PdfController extends Controller
                     'nama_karyawan' => $combinedKaryawan,
                     'jenis_pekerjaan' =>  $request->jenis,
                     'lokasi' => $request->lokasi,
+                    'tanggalpekerjaan' => $formattedTanggalPekerjaan,
                     'waktu' => $waktu,
                 ]);
             }
@@ -118,7 +124,7 @@ class PdfController extends Controller
     public function preview(Request $request){
         $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','keterangan']);
 
-         $history = History::paginate(10);
+        $history = History::paginate(10);
         $waktu = "$request->dari S/d $request->sampai";
 
         $combinedKaryawan = explode(', ', $request->nama_karyawan);
@@ -141,6 +147,7 @@ class PdfController extends Controller
                 'jenis' => $request->jenis_pekerjaan,
                 'lokasi' => $request->lokasi,
                 'date' => $request->date,
+                'tanggalpekerjaan' => $request->tanggalPekerjaan,
                 'waktu' => $request->waktu,
                 'nosurat' => $request->no_surat,
                 ]

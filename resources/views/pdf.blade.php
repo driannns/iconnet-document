@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Icon Plus') }}</title>
+    <title>hdhd</title>
     <link rel="icon" href="assets/logo.png">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -86,6 +86,10 @@
                 <div class="flex pl-3">
                     <p class="w-4/12">Lokasi Pekerjaan</p>
                     <p>: {{ Session::get('lokasi')}}</p>
+                </div>
+                <div class="flex pl-3">
+                    <p class="w-4/12">Tanggal Pengerjaan</p>
+                    <p>: {{ Session::get('tanggalpekerjaan')}}</p>
                 </div>
                 <div class="flex pl-3">
                     <p class="w-4/12">Waktu Pengerjaan</p>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nama_karyawan');
             $table->string('jenis_pekerjaan');
             $table->string('lokasi');
+            $table->string('tanggalpekerjaan');
             $table->string('waktu');
             $table->string('keterangan')->nullable();
             $table->timestamps();

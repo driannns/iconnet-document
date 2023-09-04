@@ -16,7 +16,7 @@
                     <option value="umum">Umum</option>
                     <option value="plh">Pemeliharaan</option>
                     <option value="aktv">Aktivasi</option>
-                    <option value="sls">Sales</option>
+                    <option value="pjln">Penjualan</option>
                 </select>
             </div>
             <div class="form-control w-9/12" id="formfield">
@@ -62,6 +62,11 @@
                 <label class="label">
                     <span class="label-text">Waktu Pengerjaan</span>
                 </label>
+                <label class="label">
+                    <span class="label-text">Tanggal Pekerjaan</span>
+                </label>
+                <input type="date" id="tanggalpekerjaan" name="tanggalpekerjaan" placeholder="Tanggal pekerjaan"
+                    class="input bg-transparent input-bordered border-2 w-9/12" />
                 <div class="flex w-9/12 gap-2">
                     <div class="w-9/12">
 
