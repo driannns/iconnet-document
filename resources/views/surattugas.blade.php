@@ -14,7 +14,7 @@
                     required>
                     <option value="">Pilih Divisi</option>
                     <option value="umum">Umum</option>
-                    <option value="plh">Pemeliharaan</option>
+                    <option value="pmlh">Pemeliharaan</option>
                     <option value="aktv">Aktivasi</option>
                     <option value="pjln">Penjualan</option>
                 </select>
@@ -153,7 +153,7 @@
     </div>
     @if(!empty($message))
     <div id="alert-1"
-        class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 w-fit absolute right-0 bottom-0 mr-10"
+        class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 w-fit fixed right-0 bottom-0 mr-10"
         role="alert">
         <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
             viewBox="0 0 20 20">
@@ -183,7 +183,7 @@
     var counter = 0;
 
     function division(that){
-        if (that.value == "aktv" || that.value == "plh"){
+        if (that.value == "aktv" || that.value == "pmlh"){
             console.log("aktivasi")
                 document.getElementById("keterangan").style.display = "block";
                 document.getElementById("keterangan").querySelector('input').removeAttribute('disabled', '');

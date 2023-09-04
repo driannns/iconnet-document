@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/history', [PdfController::class, 'search'])->name('history.search');
 
     Route::post('/preview', [PdfController::class, 'preview'])->name('preview.index');
+    Route::put('/preview/{id}', [PdfController::class, 'update'])->name('preview.update');
 
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

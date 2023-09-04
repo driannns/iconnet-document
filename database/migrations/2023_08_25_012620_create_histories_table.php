@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('jenis_pekerjaan');
             $table->string('lokasi');
             $table->string('tanggalpekerjaan');
-            $table->string('waktu');
+            $table->string('dari');
+            $table->string('sampai');
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });
