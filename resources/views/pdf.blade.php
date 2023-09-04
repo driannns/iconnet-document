@@ -65,7 +65,7 @@
                 <h2 class="pb-4">Menugaskan kepada :</h2>
                 <table class="w-11/12 border border-black mx-auto">
                     <thead class="bg-[#708fb5]" style="background-color: #708fb5;">
-                        <th class="border border-black p-0 m-0">No</th>
+                        <th class="border border-black p-0 m-0 w-1/12">No</th>
                         <th class="border border-black p-0 m-0">Nama</th>
                     </thead>
                     <tbody class="text-center">
@@ -113,23 +113,6 @@
             </div>
         </div>
     </div>
-    <script>
-        jQuery(document).ready(function () {
-            $('#btn-one').click(function () {
-
-                html2canvas(document.querySelector('#content')).then((canvas) => {
-                    let base64image = canvas.toDataURL('image/png');
-                    console.log(base64image);
-
-                    let pdf = new jsPDF('p', 'px', [900, 1050]);
-                    pdf.addImage(base64image, 'PNG', 0, 0, 900, 1050);
-                    pdf.save('webty');
-                });
-
-            });
-        });
-
-    </script>
 </body>
 
 </html>

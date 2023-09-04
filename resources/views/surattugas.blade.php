@@ -3,16 +3,17 @@
         <h1 class="font-bold text-xl">Surat Tugas</h1>
         <form action="{{route('pdf.create')}}" method="post">
             @csrf
-            <input class="bg-white text-black border-none font-bold w-10 text-center" type="text" id="myNumber"
+            <input class="bg-white text-black border-none font-bold w-10 text-center" type="hidden" id="myNumber"
                 value="1" name="myNumber" min="0">
             <div class="form-control w-9/12" id="formfield">
 
                 <label class="label">
                     <span class="label-text">Divisi Petugas</span>
                 </label>
-                <select name="divisi" id="divisi" class="w-9/12 input bg-transparent input-bordered border-2 mb-1"
+                <select onchange="division(this);" name="divisi" id="divisi" class="w-9/12 input bg-transparent input-bordered border-2 mb-1"
                     required>
                     <option value="">Pilih Divisi</option>
+                    <option value="umum">Umum</option>
                     <option value="plh">Pemeliharaan</option>
                     <option value="aktv">Aktivasi</option>
                     <option value="sls">Sales</option>
@@ -41,8 +42,7 @@
                         -
                     </button>
                 </div>
-                <!-- <input type="text" id="petugas" name="petugas" placeholder="Nama Petugas"
-                    class="input bg-transparent input-bordered border-2 w-9/12" /> -->
+
             </div>
             <div class="form-control w-9/12">
                 <label class="label">
@@ -135,17 +135,15 @@
                     </div>
                 </div>
             </div>
-            <div class="form-control w-9/12">
+            <div class="form-control w-9/12 hidden" id="keterangan">
                 <label class="label">
-                    <span class="label-text">Keterangan</span>
+                    <span class="label-text">Keterangan No pa/andop</span>
                 </label>
-                <input type="text" id="keterangan" name="keterangan" placeholder="Keterangan"
+                <input type="text" id="keteranganInput" name="keterangan" placeholder="Keterangan"
                     class="input bg-transparent input-bordered border-2 w-9/12" />
             </div>
             <button class="btn btn-wide mt-5" type="submit">Submit</button>
         </form>
-        <!-- <button class="px-2 py-1 bg-gray-100 m-2 rounded-md" id="btn-print">Generate PDF</button>
-        <button class="px-2 py-1 bg-gray-100 m-2 rounded-md" id="btn-two">Generate PDF</button> -->
 
     </div>
     @if(!empty($message))
@@ -172,12 +170,26 @@
         </button>
     </div>
     @endif
-    <!-- <iframe src="/pdf" id="frame" style="width: 100%; border:0; height:0;" class="m-0 p-0"></iframe> -->
+
 </x-app-layout>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
 <script>
     var formfield = document.getElementById('email-list');
     var counter = 0;
+
+    function division(that){
+        if (that.value == "aktv" || that.value == "plh"){
+            console.log("aktivasi")
+                document.getElementById("keterangan").style.display = "block";
+                document.getElementById("keterangan").querySelector('input').removeAttribute('disabled', '');
+                document.getElementById("keterangan").querySelector('input').setAttribute('required', '');
+            } else {
+                console.log("umuu")
+                document.getElementById("keterangan").style.display = "none";
+                document.getElementById("keterangan").querySelector('input').removeAttribute('required', '');
+                document.getElementById("keterangan").querySelector('input').setAttribute('disabled', '');
+            }
+    }
 
     function add() {
         counter++
@@ -200,18 +212,7 @@
         newPetugas.classList.add("border-2");
         newPetugas.setAttribute('placeholder', 'Nama Karyawan');
 
-        // newHandphone.setAttribute('type', 'tel');
-        // newHandphone.setAttribute('name', `handphone${counter}`);
-        // newHandphone.setAttribute("required", "");
-        // newHandphone.classList.add("input");
-        // newHandphone.classList.add("bg-transparent");
-        // newHandphone.classList.add("input-bordered");
-        // newHandphone.classList.add("w-full");
-        // newHandphone.classList.add("mb-2");
-        // newHandphone.classList.add("border-2");
-        // newHandphone.setAttribute('placeholder', 'No Handphone');
         formfield.appendChild(newPetugas);
-        // formfield.appendChild(newHandphone);
     }
 
     function remove() {
@@ -231,5 +232,5 @@
             // formfield.removeChild(input_tags[(input_tags.length) - 1]);
         }
     }
-
+    
 </script>

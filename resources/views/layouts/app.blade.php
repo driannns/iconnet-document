@@ -109,7 +109,7 @@
             @include('layouts.navigation')
             {{ $slot }}
         </main>
-        <iframe src="/pdf" id="frame" style="wdth: 100%; border:0; height:0;" class="m-0 p-0"></iframe>
+        <iframe src="/pdf" id="frame" style="width: 100%; border:0; height:0;" class="m-0 p-0"></iframe>
 
     </div>
     <script>
