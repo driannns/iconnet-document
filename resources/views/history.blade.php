@@ -2,8 +2,10 @@
     <div class="bg-white m-5 p-10 rounded-lg text-black">
         <h1 class="text-xl font-bold">History</h1>
         <!-- Search -->
-        <form action="{{ route('history.search') }}" method="post" class="flex gap-x-2 items-center">
-            @csrf
+        <div class="flex justify-between items-center">
+
+            <form action="{{ route('history.search') }}" method="post" class="flex gap-x-2 items-center">
+                @csrf
                 <input type="text" name="search" class="w-fit input bg-transparent input-bordered border-2" placeholder="Search...">
             <div class="flex gap-x-2 my-2">
                 <input type="date" name="start_date" class="w-full input bg-transparent input-bordered border-2">
@@ -17,6 +19,10 @@
                 </svg>
             </button>
         </form>
+        <a href="{{ route('history.export') }}">
+            <button class="btn btn-primary">Export</button>
+        </a>
+    </div>
 
         <div class="overflow-x-auto">
             <table class="table">

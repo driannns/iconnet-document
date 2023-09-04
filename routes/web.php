@@ -34,7 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/history', [PdfController::class, 'history'])->name('history.index');
     Route::post('/history', [PdfController::class, 'search'])->name('history.search');
-
+    Route::get('/history/export', [PdfController::class, 'export'])->name('history.export');
+    
     Route::post('/preview', [PdfController::class, 'preview'])->name('preview.index');
     Route::put('/preview/{id}', [PdfController::class, 'update'])->name('preview.update');
 

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\NoSurat;
 use App\Models\History;
+use App\Models\NoSurat;
+use Illuminate\Http\Request;
+use App\Exports\HistoryExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PdfController extends Controller
 {
@@ -254,5 +256,9 @@ class PdfController extends Controller
             );
 
             return redirect()->back();
+    }
+
+    public function export(){
+        return Excel::download(new HistoryExport, 'datasurattugas.xlsx');
     }
 }
