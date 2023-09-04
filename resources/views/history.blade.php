@@ -23,7 +23,7 @@
                     <tr class="text-black">
                         <th class="text-center">No</th>
                         <th class="text-center">Tanggal</th>
-                        <th class="text-center">No Surat</th>
+                        <th class="text-center">Nomor Surat</th>
                         <th class="text-center">Divisi</th>
                         <th class="text-center">Nama Karyawan</th>
                         <th class="text-center">Jenis Pekerjaan</th>
