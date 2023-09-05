@@ -66,7 +66,7 @@
                     <span class="label-text">Tanggal Pekerjaan</span>
                 </label>
                 <input type="date" id="tanggalpekerjaan" name="tanggalpekerjaan" placeholder="Tanggal pekerjaan"
-                    class="input bg-transparent input-bordered border-2 w-9/12" />
+                    class="input bg-transparent input-bordered border-2 w-9/12" data-theme="light"/>
                 <div class="flex w-9/12 gap-2">
                     <div class="w-9/12">
 
@@ -140,9 +140,16 @@
                     </div>
                 </div>
             </div>
-            <div class="form-control w-9/12 hidden" id="keterangan">
+            <div class="form-control w-9/12 hidden" id="keteranganpa">
                 <label class="label">
-                    <span class="label-text">Keterangan No pa/andop</span>
+                    <span class="label-text">Keterangan No PA</span>
+                </label>
+                <input type="text" id="keteranganInput" name="keterangan" placeholder="Keterangan"
+                    class="input bg-transparent input-bordered border-2 w-9/12" />
+            </div>
+            <div class="form-control w-9/12 hidden" id="keteranganandop">
+                <label class="label">
+                    <span class="label-text">Keterangan No Andop</span>
                 </label>
                 <input type="text" id="keteranganInput" name="keterangan" placeholder="Keterangan"
                     class="input bg-transparent input-bordered border-2 w-9/12" />
@@ -183,16 +190,19 @@
     var counter = 0;
 
     function division(that){
-        if (that.value == "aktv" || that.value == "pmlh"){
+        if (that.value == "aktv"){
             console.log("aktivasi")
-                document.getElementById("keterangan").style.display = "block";
-                document.getElementById("keterangan").querySelector('input').removeAttribute('disabled', '');
-                document.getElementById("keterangan").querySelector('input').setAttribute('required', '');
-            } else {
-                console.log("umuu")
-                document.getElementById("keterangan").style.display = "none";
-                document.getElementById("keterangan").querySelector('input').removeAttribute('required', '');
-                document.getElementById("keterangan").querySelector('input').setAttribute('disabled', '');
+                document.getElementById("keteranganpa").style.display = "block";
+                document.getElementById("keteranganpa").querySelector('input').setAttribute('required', '');
+                document.getElementById("keteranganpa").querySelector('input').removeAttribute('disabled', '');
+                document.getElementById("keteranganandop").style.display = "none";
+                document.getElementById("keteranganandop").querySelector('input').setAttribute('disabled', '');
+            } else if(that.value == "pmlh") {
+                document.getElementById("keteranganpa").style.display = "none";
+                document.getElementById("keteranganpa").querySelector('input').setAttribute('disabled', '');
+                document.getElementById("keteranganandop").style.display = "block";
+                document.getElementById("keteranganandop").querySelector('input').setAttribute('required', '');
+                document.getElementById("keteranganandop").querySelector('input').removeAttribute('disabled', '');
             }
     }
 
