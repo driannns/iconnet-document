@@ -104,11 +104,8 @@
         </aside>
 
         <!-- Page Content -->
-        <main class="sm:ml-64 relative">
-        <div class="absolute w-10/12 h-screen opacity-20 -z-10"
-            style="background-image: url('assets/wallpaper.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
-        </div>
-        <div class="z-50 bg-transparent">
+        <main class="sm:ml-64">
+        <div class="">
             @include('layouts.navigation')
             {{ $slot }}
         </div>
