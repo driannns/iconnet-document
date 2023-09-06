@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
@@ -26,17 +27,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
         integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <style>
-        ::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-        }
-
-    </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100 relative">
 
         <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
             aria-controls="default-sidebar" type="button"
@@ -91,8 +86,6 @@
                                     d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
                             </svg>
                             <span class="flex-1 ml-3 whitespace-nowrap">History</span>
-                            <span
-                                class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                         </a>
                     </li>
                 </ul>
@@ -111,9 +104,14 @@
         </aside>
 
         <!-- Page Content -->
-        <main class="sm:ml-64">
+        <main class="sm:ml-64 relative">
+        <div class="absolute w-10/12 h-screen opacity-20 -z-10"
+            style="background-image: url('assets/wallpaper.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+        </div>
+        <div class="z-50 bg-transparent">
             @include('layouts.navigation')
             {{ $slot }}
+        </div>
         </main>
         <iframe src="/pdf" id="frame" style="width: 100%; border:0; height:0;" class="m-0 p-0"></iframe>
 

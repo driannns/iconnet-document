@@ -203,6 +203,12 @@
                 document.getElementById("keteranganandop").style.display = "block";
                 document.getElementById("keteranganandop").querySelector('input').setAttribute('required', '');
                 document.getElementById("keteranganandop").querySelector('input').removeAttribute('disabled', '');
+            } else{
+                document.getElementById("keteranganandop").style.display = "none";
+                document.getElementById("keteranganandop").querySelector('input').setAttribute('disabled', '');
+                document.getElementById("keteranganpa").querySelector('input').setAttribute('disabled', '');
+                document.getElementById("keteranganpa").style.display = "none";
+
             }
     }
 

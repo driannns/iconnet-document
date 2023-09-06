@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('tanggalpekerjaan');
             $table->string('dari');
             $table->string('sampai');
+            $table->string('persetujuan')->nullable();
+            $table->string('no_pa_adop')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });

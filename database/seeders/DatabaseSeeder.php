@@ -17,5 +17,9 @@ class DatabaseSeeder extends Seeder
                 'nosurat' => 0 
             ];
             NoSurat::insert($nosurat);
+
+            $this->call(ROleSeeder::class);
+            $this->call(ManagerSeeder::class);
+            $this->call(UserSeeder::class);
     }
 }

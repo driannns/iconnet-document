@@ -59,6 +59,7 @@ class PdfController extends Controller
 
         
         $formatnosurat = "{$formattedNumber}/{$request->divisi}/{$formattedMonth}/{$year}";
+
         if(!empty($request->keterangan)){
             $combinedKaryawan = implode(', ', $karyawan);
             History::create([
@@ -72,7 +73,7 @@ class PdfController extends Controller
                 'dari' => $request->dari,
                 'sampai' => $request->sampai,
                 'tanggalpekerjaan' => $request->tanggalpekerjaan,
-                'keterangan' => $request->keterangan,
+                'no_pa_adop' => $request->keterangan,
             ]);
             session(
                 [
@@ -131,6 +132,24 @@ class PdfController extends Controller
         $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','keterangan']);
 
         $combinedKaryawan = explode(', ', $request->nama_karyawan);
+
+        $formattedTanggalPekerjaan = Carbon::parse($request->tanggalpekerjaan)->format('d F Y');
+        $monthNames = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];        
+        $formattedTanggalPekerjaan = strtr($formattedTanggalPekerjaan, $monthNames);
+
         $number = count($combinedKaryawan);
         foreach ($combinedKaryawan as $key => $value) {
             session([
@@ -140,9 +159,9 @@ class PdfController extends Controller
         
         $waktu = "$request->dari S/d $request->sampai";
 
-        if(!empty($request->keterangan)){
+        if(!empty($request->no_pa_adop)){
             session([
-                'keterangan' => $request->keterangan
+                'keterangan' => $request->no_pa_adop
             ]);
         }
 
@@ -152,7 +171,7 @@ class PdfController extends Controller
                 'jenis' => $request->jenis_pekerjaan,
                 'lokasi' => $request->lokasi,
                 'date' => $request->date,
-                'tanggalpekerjaan' => $request->tanggalpekerjaan,
+                'tanggalpekerjaan' => $formattedTanggalPekerjaan,
                 'waktu' => $waktu,
                 'nosurat' => $request->no_surat,
                 ]
@@ -197,23 +216,10 @@ class PdfController extends Controller
     }
 
     public function update(Request $request, $id){
+        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','tanggalpekerjaan','keterangan']);
+
         $data = History::find($id);
         $waktu = "$request->dari S/d $request->sampai";
-
-        $monthNames = [
-            'January' => 'Januari',
-            'February' => 'Februari',
-            'March' => 'Maret',
-            'April' => 'April',
-            'May' => 'Mei',
-            'June' => 'Juni',
-            'July' => 'Juli',
-            'August' => 'Agustus',
-            'September' => 'September',
-            'October' => 'Oktober',
-            'November' => 'November',
-            'December' => 'Desember',
-        ];
 
         $combinedKaryawan = explode(', ', $request->nama_karyawan);
         $number = count($combinedKaryawan);
@@ -235,11 +241,14 @@ class PdfController extends Controller
             'dari' => $request->dari,
             'sampai' => $request->sampai,
             'tanggalpekerjaan' => $request->tanggalpekerjaan,
+            'no_pa_adop' => $request->no_pa_adop,
+            'keterangan' => $request->keterangan,
+            'persetujuan' => 'Telah diedit'
         ]);
 
-        if(!empty($request->keterangan)){
+        if(!empty($request->no_pa_adop)){
             session([
-                'keterangan' => $request->keterangan
+                'keterangan' => $request->no_pa_adop
             ]);
         }
 
@@ -260,5 +269,26 @@ class PdfController extends Controller
 
     public function export(){
         return Excel::download(new HistoryExport, 'datasurattugas.xlsx');
+    }
+
+    public function setuju($id){
+        $history = History::find($id);
+        
+        $history->update([
+            'persetujuan' => 'Disetujui'
+        ]);
+
+        return redirect()->back();
+    }
+    
+    public function tidaksetuju(Request $request, $id){
+        $history = History::find($id);
+        
+        $history->update([
+            'persetujuan' => 'Tidak Disetujui',
+            'keterangan' => $request->keterangan
+        ]);
+
+        return redirect()->back();
     }
 }

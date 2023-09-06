@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PdfController;
+use Carbon\Carbon;
+use App\Models\History;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,19 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-        return view('index');
+        $date = Carbon::parse(now()->format('Y-m-d'));
+        $formattedDate = $date->format('Y-m-d');
+        $all = History::all();
+        $allCount = $all->count();
+        $accepted = History::where('persetujuan', 'Disetujui')->get();
+        $acceptedCount = $accepted->count();
+        $rejected = History::where('persetujuan', 'Tidak Disetujui')->get();
+        $rejectedCount = $rejected->count();
+        $edited = History::where('persetujuan', 'Telah diedit')->get();
+        $editedCount = $edited->count();
+        $today = History::where('created_at',  'LIKE', '%' . $formattedDate . '%')->get();
+        $todayCount = $today->count();
+        return view('index', compact('allCount','acceptedCount', 'rejectedCount','editedCount','todayCount'));
     });
 
     Route::get('/pengajuan', function () {
@@ -34,6 +48,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/history', [PdfController::class, 'history'])->name('history.index');
     Route::post('/history', [PdfController::class, 'search'])->name('history.search');
+    Route::post('/history/setuju/{id}', [PdfController::class, 'setuju'])->name('history.setuju');
+    Route::post('/history/tidaksetuju/{id}', [PdfController::class, 'tidaksetuju'])->name('history.tidaksetuju');
     Route::get('/history/export', [PdfController::class, 'export'])->name('history.export');
     
     Route::post('/preview', [PdfController::class, 'preview'])->name('preview.index');
