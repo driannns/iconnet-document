@@ -110,7 +110,9 @@
                                 <button id="btn-print" type="submit" class="btn">Preview</button>
                             </form>
                             <label for="my_modal{{ $data->id }}" class="btn">Edit</label>
+                            @if(!($data->persetujuan == 'Disetujui' || $data->persetujuan == 'Tidak Disetujui'))
                             <label for="persetujuan_{{ $data->id }}" class="btn">Persetujuan</label>
+                            @endif
                         </div>
                             
 

@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pengajuan', function () {
         return view('surattugas');
-    });
+    })->middleware(['role:user']);
     
     Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
     Route::post('/pdf', [PdfController::class, 'create'])->name('pdf.create');

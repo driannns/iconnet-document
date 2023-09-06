@@ -37,6 +37,7 @@
                     <h3>PT Indonesia Comnet Plus Wilayah Kalimatan Selatan</h3>
                 </div>
                 <div class="z-50 w-full sm:max-w-3xl mt-6 px-6 py-4 bg-white overflow-hidden rounded-lg">
+                    <img src="{{ asset('assets/logo_kampus.png') }}" alt="Logo Kampus" class="w-16 absolute bottom-0 right-0 mb-3 mr-3">
                     {{ $slot }}
                 </div>
             </div>

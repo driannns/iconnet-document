@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="bg-white m-5 p-10  rounded-lg text-black">
-        <h1 class="font-bold text-xl">Surat Tugas</h1>
+        <h1 class="font-bold text-xl">Pembuatan SPPD</h1>
         <form action="{{route('pdf.create')}}" method="post">
             @csrf
             <input class="bg-white text-black border-none font-bold w-10 text-center" type="hidden" id="myNumber"
