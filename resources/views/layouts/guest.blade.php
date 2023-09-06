@@ -24,10 +24,9 @@
             style="background-image: url('assets/wallpaper.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
         </div>
 
-            <nav class="w-full bg-white flex items-center justify-center" style="height: 10vh;">
-                <a href="/">
-                    <img class="w-2/12 sm:w-1/12 mx-auto" src="/assets/logo.png" alt="Photo of PLN" />
-                </a>
+            <nav class="w-full bg-white flex items-center justify-center gap-x-3" style="height: 10vh;">
+                <img src="{{ asset('assets/logo_kampus.png') }}" alt="Logo Kampus" class="w-14">
+                <img class="w-1/12" src="/assets/logo.png" alt="Photo of PLN" />
             </nav>
             <div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 xs:"
                 style="height: 90vh;">
@@ -37,7 +36,6 @@
                     <h3>PT Indonesia Comnet Plus Wilayah Kalimatan Selatan</h3>
                 </div>
                 <div class="z-50 w-full sm:max-w-3xl mt-6 px-6 py-4 bg-white overflow-hidden rounded-lg">
-                    <img src="{{ asset('assets/logo_kampus.png') }}" alt="Logo Kampus" class="w-16 absolute bottom-0 right-0 mb-3 mr-3">
                     {{ $slot }}
                 </div>
             </div>
