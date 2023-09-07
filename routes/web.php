@@ -39,20 +39,12 @@ Route::middleware('auth')->group(function () {
         return view('index', compact('allCount','acceptedCount', 'rejectedCount','editedCount','todayCount'));
     });
 
-    Route::get('/pengajuan', function () {
-        return view('surattugas');
-    })->middleware(['role:user'])->name('pengajuan');
-    
-    Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
     Route::post('/pdf', [PdfController::class, 'create'])->name('pdf.create');
 
     Route::get('/history', [PdfController::class, 'history'])->name('history.index');
     Route::post('/history', [PdfController::class, 'search'])->name('history.search');
-    Route::post('/history/setuju/{id}', [PdfController::class, 'setuju'])->name('history.setuju');
-    Route::post('/history/tidaksetuju/{id}', [PdfController::class, 'tidaksetuju'])->name('history.tidaksetuju');
     Route::get('/history/export', [PdfController::class, 'export'])->name('history.export');
     
-    Route::delete('/delete/{id}', [PdfController::class, 'delete'])->name('delete.index');
 
     Route::post('/preview', [PdfController::class, 'preview'])->name('preview.index');
     Route::put('/preview/{id}', [PdfController::class, 'update'])->name('preview.update');
@@ -60,6 +52,25 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
+
+    Route::middleware('role:user')->group(function(){
+
+        Route::get('/pengajuan', function () {
+            return view('surattugas');
+        })->middleware(['role:user'])->name('pengajuan');
+        
+        Route::delete('/delete/{id}', [PdfController::class, 'delete'])->name('delete.index');
+
+    });
+    
+    Route::middleware('role:manager')->group(function(){
+
+        Route::post('/history/setuju/{id}', [PdfController::class, 'setuju'])->name('history.setuju');
+        Route::post('/history/tidaksetuju/{id}', [PdfController::class, 'tidaksetuju'])->name('history.tidaksetuju');
+
+    });
+
 });
 
 require __DIR__.'/auth.php';

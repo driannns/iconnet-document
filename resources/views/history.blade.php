@@ -105,13 +105,16 @@
                             <td>{{ $data->keterangan }}</td>
                             @role('user')
                             <td class="flex gap-x-1">
-                                <button id="btn-print" type="submit" class="btn">Preview</button>
+                                <button id="btn-print" type="submit" class="btn btn-primary">Preview</button>
                                 <!-- The button to open modal -->
+                                <label for="my_modal{{ $data->id }}" class="btn">Edit</label>
                                 <label for="my_modal_6" class="btn btn-error text-white">Delete</label>
 
                                 <!-- Put this part before </body> tag -->
                             </td>
                         </form>
+
+                        <!-- MODAL DELETE -->
                         <input type="checkbox" id="my_modal_6" class="modal-toggle" />
                         <div class="modal">
                             <div class="modal-box bg-white">
@@ -127,23 +130,9 @@
                                 </div>
                             </div>
                         </div>
-                        @elserole('manager')
-                        <td>
-                            <div class="flex gap-2">
-                                <button id="btn-print" type="submit" class="btn">Preview</button>
-                                </form>
-                                <label for="my_modal{{ $data->id }}" class="btn">Edit</label>
-                                @if(!($data->persetujuan == 'Disetujui' || $data->persetujuan == 'Tidak Disetujui'))
-                                <label for="persetujuan_{{ $data->id }}" class="btn">Persetujuan</label>
-                                @endif
-                            </div>
 
-
-                        </td>
-
-
-                        <!-- MODAL EDIT -->
-                        <input type="checkbox" id="my_modal{{ $data->id }}" class="modal-toggle" />
+                         <!-- MODAL EDIT -->
+                         <input type="checkbox" id="my_modal{{ $data->id }}" class="modal-toggle" />
                         <div class="modal" data-theme="light">
                             <div class="modal-box max-w-6xl bg-white flex flex-col" style="width: 1500px;">
                                 <form method="post" action="{{ route('preview.update', $data->id) }}">
@@ -215,7 +204,7 @@
                                                 <input type="date" id="tanggalpekerjaan" name="daritanggalpekerjaan"
                                                     placeholder="Tanggal pekerjaan"
                                                     class="input bg-transparent input-bordered border-2 w-full"
-                                                    data-theme="light" />
+                                                    data-theme="light" value="{{ $data->daritanggalpekerjaan }}"/>
                                             </div>
                                             <div class="w-1/2">
                                                 <label class="label">
@@ -224,7 +213,7 @@
                                                 <input type="date" id="tanggalpekerjaan" name="sampaitanggalpekerjaan"
                                                     placeholder="Tanggal pekerjaan"
                                                     class="input bg-transparent input-bordered border-2 w-full"
-                                                    data-theme="light" />
+                                                    data-theme="light"value="{{ $data->sampaitanggalpekerjaan }}" />
                                             </div>
                                         </div>
                                     </div>
@@ -374,6 +363,19 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        @elserole('manager')
+                        <td>
+                            <div class="flex gap-2">
+                                <button id="btn-print" type="submit" class="btn">Preview</button>
+                                </form>
+                                @if(!($data->persetujuan == 'Disetujui' || $data->persetujuan == 'Tidak Disetujui'))
+                                <label for="persetujuan_{{ $data->id }}" class="btn">Persetujuan</label>
+                                @endif
+                            </div>
+
+
+                        </td>
 
                         <!-- MODAL PERSETUJUAN -->
                         <input type="checkbox" id="persetujuan_{{ $data->id }}" class="modal-toggle" />
