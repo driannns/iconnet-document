@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('nama_karyawan');
             $table->string('jenis_pekerjaan');
             $table->string('lokasi');
-            $table->string('tanggalpekerjaan');
+            $table->string('daritanggalpekerjaan');
+            $table->string('sampaitanggalpekerjaan');
             $table->string('dari');
             $table->string('sampai');
             $table->string('persetujuan')->nullable();

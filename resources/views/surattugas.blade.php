@@ -10,8 +10,8 @@
                 <label class="label">
                     <span class="label-text">Divisi Petugas</span>
                 </label>
-                <select onchange="division(this);" name="divisi" id="divisi" class="w-9/12 input bg-transparent input-bordered border-2 mb-1"
-                    required>
+                <select onchange="division(this);" name="divisi" id="divisi"
+                    class="w-9/12 input bg-transparent input-bordered border-2 mb-1" required>
                     <option value="">Pilih Divisi</option>
                     <option value="umum">Umum</option>
                     <option value="pmlh">Pemeliharaan</option>
@@ -60,15 +60,33 @@
             </div>
             <div class="form-control w-9/12">
                 <label class="label">
-                    <span class="label-text">Waktu Pengerjaan</span>
-                </label>
-                <label class="label">
                     <span class="label-text">Tanggal Pekerjaan</span>
                 </label>
-                <input type="date" id="tanggalpekerjaan" name="tanggalpekerjaan" placeholder="Tanggal pekerjaan"
-                    class="input bg-transparent input-bordered border-2 w-9/12" data-theme="light"/>
-                <div class="flex w-9/12 gap-2">
-                    <div class="w-9/12">
+                <div class="flex w-9/12 gap-x-2">
+
+                    <div class="w-1/2">
+                        <label class="label">
+                            <span class="label-text">Dari</span>
+                        </label>
+                        <input type="date" id="tanggalpekerjaan" name="daritanggalpekerjaan" placeholder="Tanggal pekerjaan"
+                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" />
+                    </div>
+                    <div class="w-1/2">
+                        <label class="label">
+                            <span class="label-text">Sampai</span>
+                        </label>
+                        <input type="date" id="tanggalpekerjaan" name="sampaitanggalpekerjaan" placeholder="Tanggal pekerjaan"
+                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" />
+                    </div>
+                </div>
+            </div>
+            <label class="label">
+                <span class="label-text">Waktu Pengerjaan</span>
+            </label>
+            <div class="form-control flex flex-row w-9/12 gap-2">
+                <div class="flex gap-x-2 w-9/12">
+
+                    <div class="w-1/2">
 
                         <label class="label">
                             <span class="label-text">Dari</span>
@@ -103,7 +121,7 @@
                         </select>
                         <!-- <input type="time" placeholder="Waktu pengerjaan" class="input bg-transparent input-bordered border-2 w-full" /> -->
                     </div>
-                    <div class="w-9/12">
+                    <div class="w-1/2">
                         <label class="label">
                             <span class="label-text">Sampai</span>
                         </label>
@@ -139,7 +157,9 @@
                         <!-- <input type="time" placeholder="Waktu pengerjaan" class="input bg-transparent input-bordered border-2 w-full" /> -->
                     </div>
                 </div>
+
             </div>
+
             <div class="form-control w-9/12 hidden" id="keteranganpa">
                 <label class="label">
                     <span class="label-text">Keterangan No PA</span>
@@ -158,7 +178,7 @@
         </form>
 
     </div>
-    @if(!empty($message))
+    @if(session('message'))
     <div id="alert-1"
         class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 w-fit fixed right-0 bottom-0 mr-10"
         role="alert">
@@ -169,7 +189,7 @@
         </svg>
         <span class="sr-only">Info</span>
         <div class="ml-3 text-sm font-medium w-fit">
-            Dokumen sudah bisa didownload di button "Generate PDF" di bawah kiri!
+            {{ Session::get('message') }}
         </div>
         <button type="button"
             class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
@@ -189,27 +209,27 @@
     var formfield = document.getElementById('email-list');
     var counter = 0;
 
-    function division(that){
-        if (that.value == "aktv"){
+    function division(that) {
+        if (that.value == "aktv") {
             console.log("aktivasi")
-                document.getElementById("keteranganpa").style.display = "block";
-                document.getElementById("keteranganpa").querySelector('input').setAttribute('required', '');
-                document.getElementById("keteranganpa").querySelector('input').removeAttribute('disabled', '');
-                document.getElementById("keteranganandop").style.display = "none";
-                document.getElementById("keteranganandop").querySelector('input').setAttribute('disabled', '');
-            } else if(that.value == "pmlh") {
-                document.getElementById("keteranganpa").style.display = "none";
-                document.getElementById("keteranganpa").querySelector('input').setAttribute('disabled', '');
-                document.getElementById("keteranganandop").style.display = "block";
-                document.getElementById("keteranganandop").querySelector('input').setAttribute('required', '');
-                document.getElementById("keteranganandop").querySelector('input').removeAttribute('disabled', '');
-            } else{
-                document.getElementById("keteranganandop").style.display = "none";
-                document.getElementById("keteranganandop").querySelector('input').setAttribute('disabled', '');
-                document.getElementById("keteranganpa").querySelector('input').setAttribute('disabled', '');
-                document.getElementById("keteranganpa").style.display = "none";
+            document.getElementById("keteranganpa").style.display = "block";
+            document.getElementById("keteranganpa").querySelector('input').setAttribute('required', '');
+            document.getElementById("keteranganpa").querySelector('input').removeAttribute('disabled', '');
+            document.getElementById("keteranganandop").style.display = "none";
+            document.getElementById("keteranganandop").querySelector('input').setAttribute('disabled', '');
+        } else if (that.value == "pmlh") {
+            document.getElementById("keteranganpa").style.display = "none";
+            document.getElementById("keteranganpa").querySelector('input').setAttribute('disabled', '');
+            document.getElementById("keteranganandop").style.display = "block";
+            document.getElementById("keteranganandop").querySelector('input').setAttribute('required', '');
+            document.getElementById("keteranganandop").querySelector('input').removeAttribute('disabled', '');
+        } else {
+            document.getElementById("keteranganandop").style.display = "none";
+            document.getElementById("keteranganandop").querySelector('input').setAttribute('disabled', '');
+            document.getElementById("keteranganpa").querySelector('input').setAttribute('disabled', '');
+            document.getElementById("keteranganpa").style.display = "none";
 
-            }
+        }
     }
 
     function add() {
@@ -253,5 +273,5 @@
             // formfield.removeChild(input_tags[(input_tags.length) - 1]);
         }
     }
-    
+
 </script>

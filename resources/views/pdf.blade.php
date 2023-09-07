@@ -89,14 +89,20 @@
                 </div>
                 <div class="flex pl-3">
                     <p class="w-4/12">Tanggal Pengerjaan</p>
-                    <p>: {{ Session::get('tanggalpekerjaan')}}</p>
+                    <p>: {{ Session::get('daritanggalpekerjaan')}} - {{ Session::get('sampaitanggalpekerjaan')}}</p>
                 </div>
                 <div class="flex pl-3">
                     <p class="w-4/12">Waktu Pengerjaan</p>
-                    <p>: {{ Session::get('waktu')}}</p>
+                    <p>: {{ Session::get('waktu')}} WITA</p>
                 </div>
                 <div class="flex pl-3">
+                    @if(Session::get('divisi') == 'aktv')
+                    <p class="w-4/12">Keterangan No PA</p>
+                    @elseif(Session::get('divisi') == 'pmlh')
+                    <p class="w-4/12">Keterangan No ANDOP</p>
+                    @else
                     <p class="w-4/12">Keterangan</p>
+                    @endif
                     @if(!empty( Session::get('keterangan')))
                     <p>: {{ Session::get('keterangan')}}</p>
                     @else

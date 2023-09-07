@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pengajuan', function () {
         return view('surattugas');
-    })->middleware(['role:user']);
+    })->middleware(['role:user'])->name('pengajuan');
     
     Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
     Route::post('/pdf', [PdfController::class, 'create'])->name('pdf.create');
@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/history/tidaksetuju/{id}', [PdfController::class, 'tidaksetuju'])->name('history.tidaksetuju');
     Route::get('/history/export', [PdfController::class, 'export'])->name('history.export');
     
+    Route::delete('/delete/{id}', [PdfController::class, 'delete'])->name('delete.index');
+
     Route::post('/preview', [PdfController::class, 'preview'])->name('preview.index');
     Route::put('/preview/{id}', [PdfController::class, 'update'])->name('preview.update');
 

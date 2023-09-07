@@ -4,7 +4,8 @@
         <!-- Search -->
         <div class="flex justify-between items-center">
 
-            <form action="{{ route('history.search') }}" method="post" class="flex gap-x-2 items-center">
+            <form action="{{ route('history.search') }}" method="post" class="flex gap-x-2 items-center"
+                data-theme="light">
                 @csrf
                 <input type="text" name="search" class="w-fit input bg-transparent input-bordered border-2"
                     placeholder="Search...">
@@ -40,7 +41,7 @@
                         <th class="text-center">Persetujuan</th>
                         <th class="text-center">Keterangan</th>
                         @role('user')
-                        <th class="text-center">Preview</th>
+                        <th class="text-center">Preview/Delete</th>
                         @elserole('manager')
                         <th class="text-center">Preview/Edit/Pesetujuan</th>
                         @endrole
@@ -85,7 +86,10 @@
                                 name="sampai" value="{{ $data->sampai }}" readonly>
                             <input type="hidden"
                                 class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
-                                name="tanggalpekerjaan" value="{{ $data->tanggalpekerjaan }}" readonly>
+                                name="daritanggalpekerjaan" value="{{ $data->daritanggalpekerjaan }}" readonly>
+                            <input type="hidden"
+                                class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
+                                name="sampaitanggalpekerjaan" value="{{ $data->sampaitanggalpekerjaan }}" readonly>
                             <input type="hidden"
                                 class="bg-transparent border-0 focus:outline-none focus:border-0 text-sm text-center"
                                 name="no_pa_adop" value="{{ $data->no_pa_adop }}" readonly>
@@ -102,22 +106,43 @@
                             @role('user')
                             <td class="flex gap-x-1">
                                 <button id="btn-print" type="submit" class="btn">Preview</button>
+                                <!-- The button to open modal -->
+                                <label for="my_modal_6" class="btn btn-error text-white">Delete</label>
+
+                                <!-- Put this part before </body> tag -->
                             </td>
                         </form>
+                        <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+                        <div class="modal">
+                            <div class="modal-box bg-white">
+                                <h3 class="font-bold text-lg text-center">Apakah anda yakin ingin menghapus data ini?
+                                </h3>
+                                <div class="modal-action justify-center">
+                                    <form action="{{ route('delete.index', $data->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-error">Delete</button>
+                                    </form>
+                                    <label for="my_modal_6" class="btn">Close!</label>
+                                </div>
+                            </div>
+                        </div>
                         @elserole('manager')
                         <td>
-                            <div class="flex gap-2">  
+                            <div class="flex gap-2">
                                 <button id="btn-print" type="submit" class="btn">Preview</button>
-                            </form>
-                            <label for="my_modal{{ $data->id }}" class="btn">Edit</label>
-                            @if(!($data->persetujuan == 'Disetujui' || $data->persetujuan == 'Tidak Disetujui'))
-                            <label for="persetujuan_{{ $data->id }}" class="btn">Persetujuan</label>
-                            @endif
-                        </div>
-                            
+                                </form>
+                                <label for="my_modal{{ $data->id }}" class="btn">Edit</label>
+                                @if(!($data->persetujuan == 'Disetujui' || $data->persetujuan == 'Tidak Disetujui'))
+                                <label for="persetujuan_{{ $data->id }}" class="btn">Persetujuan</label>
+                                @endif
+                            </div>
+
 
                         </td>
 
+
+                        <!-- MODAL EDIT -->
                         <input type="checkbox" id="my_modal{{ $data->id }}" class="modal-toggle" />
                         <div class="modal" data-theme="light">
                             <div class="modal-box max-w-6xl bg-white flex flex-col" style="width: 1500px;">
@@ -177,19 +202,37 @@
                                             class="w-full input bg-transparent input-bordered border-2 mb-1"
                                             name="lokasi" value="{{ $data->lokasi }}" required>
                                     </div>
-                                    <div>
+                                    <div class="form-control">
                                         <label class="label">
                                             <span class="label-text">Tanggal Pekerjaan</span>
                                         </label>
-                                        <input type="date"
-                                            class="w-full input bg-transparent input-bordered border-2 mb-1"
-                                            name="tanggalpekerjaan" value="{{ $data->tanggalpekerjaan }}" required>
+                                        <div class="flex gap-x-2">
+
+                                            <div class="w-1/2">
+                                                <label class="label">
+                                                    <span class="label-text">Dari</span>
+                                                </label>
+                                                <input type="date" id="tanggalpekerjaan" name="daritanggalpekerjaan"
+                                                    placeholder="Tanggal pekerjaan"
+                                                    class="input bg-transparent input-bordered border-2 w-full"
+                                                    data-theme="light" />
+                                            </div>
+                                            <div class="w-1/2">
+                                                <label class="label">
+                                                    <span class="label-text">Sampai</span>
+                                                </label>
+                                                <input type="date" id="tanggalpekerjaan" name="sampaitanggalpekerjaan"
+                                                    placeholder="Tanggal pekerjaan"
+                                                    class="input bg-transparent input-bordered border-2 w-full"
+                                                    data-theme="light" />
+                                            </div>
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="label">
                                             <span class="label-text">Waktu Pengerjaan</span>
                                         </label>
-                                        <div class="flex w-9/12 gap-2">
+                                        <div class="flex gap-2">
                                             <div class="w-9/12">
 
                                                 <label class="label">
@@ -332,7 +375,7 @@
                             </div>
                         </div>
 
-                        <!-- Put this part before </body> tag -->
+                        <!-- MODAL PERSETUJUAN -->
                         <input type="checkbox" id="persetujuan_{{ $data->id }}" class="modal-toggle" />
                         <div class="modal">
                             <div class="modal-box max-w-6xl bg-white flex flex-col" style="width: 1500px;">
@@ -384,9 +427,13 @@
                                 <label for="persetujuan_{{ $data->id }}" class="btn">Close!</label>
                             </div>
                         </div>
-                        < /div> </div> @endrole </tr> @endforeach </tbody> </table> </div> <div class="mt-3">
-                            {{ $history->links() }}
         </div>
+    </div> @endrole </tr> @endforeach </tbody>
+    </table>
+    </div>
+    <div class="mt-3">
+        {{ $history->links() }}
+    </div>
     </div>
     @if(session('message'))
     <div id="alert-1"
@@ -399,7 +446,7 @@
         </svg>
         <span class="sr-only">Info</span>
         <div class="ml-3 text-sm font-medium w-fit">
-            Dokumen sudah bisa didownload di button "Generate PDF" di bawah kiri!
+            {{ Session::get('message') }}
         </div>
         <button type="button"
             class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
