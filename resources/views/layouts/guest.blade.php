@@ -33,7 +33,7 @@
                 <div class="text-center font-medium">
                     <h1 class="text-2xl">Hello!</h1>
                     <h3>Pembuatan Surat Perintah Perjalanan Dinas (SPPD)</h3>
-                    <h3>PT Indonesia Comnet Plus Wilayah Kalimatan Selatan</h3>
+                    <h3>PT PLN Idonesia Comnet Plus Kantor Perwakilan Wilayah Kalimantan Selatan</h3>
                 </div>
                 <div class="z-50 w-full sm:max-w-3xl mt-6 px-6 py-4 bg-white overflow-hidden rounded-lg">
                     {{ $slot }}

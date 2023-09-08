@@ -16,7 +16,7 @@
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 mt-7">
                 <!-- Card Item Start -->
                 <div
-                    class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+                    class="border border-stroke bg-[#E97451] py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark text-white rounded-3xl">
                     <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
                         <svg class="fill-primary" width="22" height="16" viewBox="0 0 22 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +31,7 @@
 
                     <div class="mt-4 flex items-end justify-between p-6">
                         <div>
-                            <h4 class="text-title-md font-bold text-black text-2xl">
+                            <h4 class="text-title-md font-bold text-2xl">
                                 {{ $todayCount }}
                             </h4>
                             <span class="font-medium">Total Surat Tugas Hari Ini</span>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div
-                    class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+                    class="border border-stroke bg-[#00aeef] py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark text-white rounded-3xl">
                     <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
                         <svg class="fill-primary" width="20" height="22" viewBox="0 0 20 22" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@
 
                     <div class="mt-4 flex items-end justify-between p-6">
                         <div>
-                            <h4 class="text-title-md font-bold text-black text-2xl">
+                            <h4 class="text-title-md font-bold text-2xl">
                                 {{ $allCount }}
                             </h4>
                             <span class="font-medium">Total Surat Tugas</span>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div
-                    class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+                    class="border border-stroke bg-[#4db92c] py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark text-white rounded-3xl">
                     <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="stroke-primary w-6 h-6">
@@ -78,7 +78,7 @@
 
                     <div class="mt-4 flex items-end justify-between p-6">
                         <div>
-                            <h4 class="text-title-md font-bold text-black text-2xl">
+                            <h4 class="text-title-md font-bold text-2xl">
                                 {{ $acceptedCount }}
                             </h4>
                             <span class="font-medium">Total Surat Tugas yang Disetujui</span>
@@ -87,7 +87,7 @@
                 </div>
 
                 <div
-                    class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+                    class="border border-stroke bg-[#FFAA33] py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark text-white rounded-3xl">
                     <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="stroke-primary w-6 h-6">
@@ -99,16 +99,16 @@
 
                     <div class="mt-4 flex items-end justify-between p-6">
                         <div>
-                            <h4 class="text-title-md font-bold text-black text-2xl">
+                            <h4 class="text-title-md font-bold text-2xl">
                                 {{ $rejectedCount }}
                             </h4>
-                            <span class="font-medium">Total Surat Tugas yang Tidak Disetujui</span>
+                            <span class="font-medium">Total Surat Tugas yang Perlu Direvisi</span>
                         </div>
                     </div>
                 </div>
 
                 <div
-                    class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+                    class="border border-stroke bg-[#404145] py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark text-white rounded-3xl">
                     <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="stroke-primary w-6 h-6">
@@ -120,10 +120,10 @@
 
                     <div class="mt-4 flex items-end justify-between p-6">
                         <div>
-                            <h4 class="text-title-md font-bold text-black text-2xl">
+                            <h4 class="text-title-md font-bold text-2xl">
                                 {{ $editedCount }}
                             </h4>
-                            <span class="font-medium">Total Surat Tugas yang Telah di Edit</span>
+                            <span class="font-medium">Total Surat Tugas yang Telah Direvisi</span>
                         </div>
                     </div>
                 </div>

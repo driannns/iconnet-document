@@ -107,7 +107,7 @@
                             <td class="flex gap-x-1">
                                 <button id="btn-print" type="submit" class="btn btn-primary">Preview</button>
                                 <!-- The button to open modal -->
-                                <label for="my_modal{{ $data->id }}" class="btn">Edit</label>
+                                <label for="my_modal{{ $data->id }}" class="btn btn-accent">Edit</label>
                                 <label for="my_modal_6" class="btn btn-error text-white">Delete</label>
 
                                 <!-- Put this part before </body> tag -->
@@ -204,7 +204,7 @@
                                                 <input type="date" id="tanggalpekerjaan" name="daritanggalpekerjaan"
                                                     placeholder="Tanggal pekerjaan"
                                                     class="input bg-transparent input-bordered border-2 w-full"
-                                                    data-theme="light" value="{{ $data->daritanggalpekerjaan }}"/>
+                                                    data-theme="light" value="{{ $data->daritanggalpekerjaan }}"  required/>
                                             </div>
                                             <div class="w-1/2">
                                                 <label class="label">

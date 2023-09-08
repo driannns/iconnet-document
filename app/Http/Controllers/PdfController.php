@@ -16,7 +16,7 @@ class PdfController extends Controller
     }
 
     public function create(Request $request){
-        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','tanggalpekerjaan','keterangan', 'divisi']);
+        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','daritanggalpekerjaan', 'sampaitanggalpekerjaan','keterangan']);
 
         $karyawan = [];
 
@@ -27,9 +27,8 @@ class PdfController extends Controller
         $date = Carbon::parse(now()->format('Y-m-d'));
         $formattedDate = $date->format('d F Y');
         $formattedDariTanggalPekerjaan = Carbon::parse($request->daritanggalpekerjaan)->format('d F Y');
-        $formattedSampaiTanggalPekerjaan = Carbon::parse($request->sampaitanggalpekerjaan)->format('d F Y');
         $year = $date->format('Y');
-
+        
         for ($i = 0; $i < $request->myNumber; $i++){
             session([
                 "petugas{$i}" => $request->input("petugas{$i}"),
@@ -55,13 +54,22 @@ class PdfController extends Controller
         $formattedMonth = $date->format('m');
         $formattedDate = strtr($formattedDate, $monthNames);
         $formattedDariTanggalPekerjaan = strtr($formattedDariTanggalPekerjaan, $monthNames);
-        $formattedSampaiTanggalPekerjaan = strtr($formattedSampaiTanggalPekerjaan, $monthNames);
         $formattedMonth = str_pad($formattedMonth, 3, '0', STR_PAD_LEFT);
         $waktu = "$request->dari S/d $request->sampai";
-
+        
+        if($request->sampaitanggalpekerjaan){
+            $formattedSampaiTanggalPekerjaan = Carbon::parse($request->sampaitanggalpekerjaan)->format('d F Y');
+            $formattedSampaiTanggalPekerjaan = strtr($formattedSampaiTanggalPekerjaan, $monthNames);
+            session(
+                [
+                    'sampaitanggalpekerjaan' =>$formattedSampaiTanggalPekerjaan,
+                ]
+                );
+        }
+        
         
         $formatnosurat = "{$formattedNumber}/{$request->divisi}/{$formattedMonth}/{$year}";
-
+        
         if(!empty($request->keterangan)){
             $combinedKaryawan = implode(', ', $karyawan);
             History::create([
@@ -87,12 +95,11 @@ class PdfController extends Controller
                     'date' => $formattedDate,
                     'waktu' => $waktu,
                     'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
-                    'sampaitanggalpekerjaan' =>$formattedSampaiTanggalPekerjaan,
                     'nosurat' => $formatnosurat,
                     'keterangan' => $request->keterangan
                     ]
                 );
-        } else {
+        } elseif($request->sampaitanggalpekerjaan){
 
             session(
                 [
@@ -102,7 +109,6 @@ class PdfController extends Controller
                     'lokasi' => $request->lokasi,
                     'date' => $formattedDate,
                     'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
-                    'sampaitanggalpekerjaan' =>$formattedSampaiTanggalPekerjaan,
                     'waktu' => $waktu,
                     'nosurat' => $formatnosurat,
                     ]
@@ -122,6 +128,62 @@ class PdfController extends Controller
                     'sampaitanggalpekerjaan' => $request->sampaitanggalpekerjaan,
                 ]);
             }
+            elseif($request->keterangan && $request->sampaitanggalpekerjaan){
+                session(
+                    [
+                        'number' => $request->myNumber,
+                        'divisi' => $request->divisi,
+                        'jenis' => $request->jenis,
+                        'lokasi' => $request->lokasi,
+                        'date' => $formattedDate,
+                        'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
+                        'waktu' => $waktu,
+                        'nosurat' => $formatnosurat,
+                        ]
+                    );
+                    $combinedKaryawan = implode(', ', $karyawan);
+                    History::create([
+                        'no_surat' => $formatnosurat,
+                        'date' => $formattedDate,
+                        'jumlah' => $request->myNumber,
+                        'divisi' => $request->divisi,
+                        'nama_karyawan' => $combinedKaryawan,
+                        'jenis_pekerjaan' =>  $request->jenis,
+                        'lokasi' => $request->lokasi,
+                        'dari' => $request->dari,
+                        'sampai' => $request->sampai,
+                        'daritanggalpekerjaan' => $request->daritanggalpekerjaan,
+                        'sampaitanggalpekerjaan' => $request->sampaitanggalpekerjaan,
+                        'keterangan' => $request->keterangan
+                    ]);
+            }
+            else {
+                session(
+                    [
+                        'number' => $request->myNumber,
+                        'divisi' => $request->divisi,
+                        'jenis' => $request->jenis,
+                        'lokasi' => $request->lokasi,
+                        'date' => $formattedDate,
+                        'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
+                        'waktu' => $waktu,
+                        'nosurat' => $formatnosurat,
+                        ]
+                    );
+                    $combinedKaryawan = implode(', ', $karyawan);
+                    History::create([
+                        'no_surat' => $formatnosurat,
+                        'date' => $formattedDate,
+                        'jumlah' => $request->myNumber,
+                        'divisi' => $request->divisi,
+                        'nama_karyawan' => $combinedKaryawan,
+                        'jenis_pekerjaan' =>  $request->jenis,
+                        'lokasi' => $request->lokasi,
+                        'dari' => $request->dari,
+                        'sampai' => $request->sampai,
+                        'daritanggalpekerjaan' => $request->daritanggalpekerjaan,
+                    ]);
+            }
 
             $nosurat->update([
                 'nosurat' => $nomorsurat
@@ -137,12 +199,11 @@ class PdfController extends Controller
     }
             
     public function preview(Request $request){
-        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','keterangan', 'divisi']);
+        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','daritanggalpekerjaan', 'sampaitanggalpekerjaan','keterangan']);
 
         $combinedKaryawan = explode(', ', $request->nama_karyawan);
 
         $formattedDariTanggalPekerjaan = Carbon::parse($request->daritanggalpekerjaan)->format('d F Y');
-        $formattedSampaiTanggalPekerjaan = Carbon::parse($request->sampaitanggalpekerjaan)->format('d F Y');
         $monthNames = [
             'January' => 'Januari',
             'February' => 'Februari',
@@ -158,8 +219,16 @@ class PdfController extends Controller
             'December' => 'Desember',
         ];        
         $formattedDariTanggalPekerjaan = strtr($formattedDariTanggalPekerjaan, $monthNames);
-        $formattedSampaiTanggalPekerjaan = strtr($formattedSampaiTanggalPekerjaan, $monthNames);
-
+        if($request->sampaitanggalpekerjaan){
+            $formattedSampaiTanggalPekerjaan = Carbon::parse($request->sampaitanggalpekerjaan)->format('d F Y');
+            $formattedSampaiTanggalPekerjaan = strtr($formattedSampaiTanggalPekerjaan, $monthNames);
+            
+            session(
+                [
+                'sampaitanggalpekerjaan' =>$formattedSampaiTanggalPekerjaan,
+                ]
+                );
+        }
         $number = count($combinedKaryawan);
         foreach ($combinedKaryawan as $key => $value) {
             session([
@@ -183,7 +252,6 @@ class PdfController extends Controller
                 'lokasi' => $request->lokasi,
                 'date' => $request->date,
                 'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
-                'sampaitanggalpekerjaan' =>$formattedSampaiTanggalPekerjaan,
                 'waktu' => $waktu,
                 'nosurat' => $request->no_surat,
                 ]
@@ -228,7 +296,7 @@ class PdfController extends Controller
     }
 
     public function update(Request $request, $id){
-        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','tanggalpekerjaan','keterangan']);
+        $request->session()->forget(['number', 'jenis', 'lokasi','date' ,'waktu','nosurat','daritanggalpekerjaan', 'sampaitanggalpekerjaan','keterangan']);
 
         $data = History::find($id);
         $waktu = "$request->dari S/d $request->sampai";
@@ -241,7 +309,6 @@ class PdfController extends Controller
             ]);
         }
         $formattedDariTanggalPekerjaan = Carbon::parse($request->daritanggalpekerjaan)->format('d F Y');
-        $formattedSampaiTanggalPekerjaan = Carbon::parse($request->sampaitanggalpekerjaan)->format('d F Y');
         $monthNames = [
             'January' => 'Januari',
             'February' => 'Februari',
@@ -257,7 +324,14 @@ class PdfController extends Controller
             'December' => 'Desember',
         ]; 
         $formattedDariTanggalPekerjaan = strtr($formattedDariTanggalPekerjaan, $monthNames);
-        $formattedSampaiTanggalPekerjaan = strtr($formattedSampaiTanggalPekerjaan, $monthNames);
+        if($request->sampaitanggalpekerjaan){
+            $formattedSampaiTanggalPekerjaan = Carbon::parse($request->sampaitanggalpekerjaan)->format('d F Y');
+            $formattedSampaiTanggalPekerjaan = strtr($formattedSampaiTanggalPekerjaan, $monthNames);
+            $data->update([
+            'sampaitanggalpekerjaan' => $request->sampaitanggalpekerjaan,
+            'sampaitanggalpekerjaan' =>$formattedSampaiTanggalPekerjaan,
+            ]);
+        }
 
         $nosurat = $data->no_surat;
         $nosuratUpdate = str_replace($data->divisi, $request->divisi, $nosurat);
@@ -272,7 +346,6 @@ class PdfController extends Controller
             'dari' => $request->dari,
             'sampai' => $request->sampai,
             'daritanggalpekerjaan' => $request->daritanggalpekerjaan,
-            'sampaitanggalpekerjaan' => $request->sampaitanggalpekerjaan,
             'no_pa_adop' => $request->no_pa_adop,
             'keterangan' => $request->keterangan,
             'persetujuan' => 'Telah diedit'
@@ -292,7 +365,6 @@ class PdfController extends Controller
                 'lokasi' => $request->lokasi,
                 'date' => $request->date,
                 'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
-                'sampaitanggalpekerjaan' =>$formattedSampaiTanggalPekerjaan,
                 'waktu' => $waktu,
                 'nosurat' => $request->no_surat,
                 ]

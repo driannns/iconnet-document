@@ -49,14 +49,14 @@
                     <span class="label-text">Jenis Pekerjaan</span>
                 </label>
                 <input type="text" id="jenis" name="jenis" placeholder="Jenis Pekerjaan"
-                    class="input bg-transparent input-bordered border-2 w-9/12" />
+                    class="input bg-transparent input-bordered border-2 w-9/12" required/>
             </div>
             <div class="form-control w-9/12">
                 <label class="label">
                     <span class="label-text">Lokasi Pekerjaan</span>
                 </label>
                 <input type="text" id="lokasi" name="lokasi" placeholder="Lokasi pekerjaan"
-                    class="input bg-transparent input-bordered border-2 w-9/12" />
+                    class="input bg-transparent input-bordered border-2 w-9/12" required/>
             </div>
             <div class="form-control w-9/12">
                 <label class="label">
@@ -68,14 +68,14 @@
                         <label class="label">
                             <span class="label-text">Dari</span>
                         </label>
-                        <input type="date" id="tanggalpekerjaan" name="daritanggalpekerjaan" placeholder="Tanggal pekerjaan"
-                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" />
+                        <input type="date" id="daritanggalpekerjaan" name="daritanggalpekerjaan" placeholder="Tanggal pekerjaan"
+                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" required/>
                     </div>
                     <div class="w-1/2">
                         <label class="label">
                             <span class="label-text">Sampai</span>
                         </label>
-                        <input type="date" id="tanggalpekerjaan" name="sampaitanggalpekerjaan" placeholder="Tanggal pekerjaan"
+                        <input type="date" id="sampai tanggalpekerjaan" name="sampaitanggalpekerjaan" placeholder="Tanggal pekerjaan"
                             class="input bg-transparent input-bordered border-2 w-full" data-theme="light" />
                     </div>
                 </div>

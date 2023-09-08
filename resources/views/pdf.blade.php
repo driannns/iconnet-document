@@ -89,7 +89,11 @@
                 </div>
                 <div class="flex pl-3">
                     <p class="w-4/12">Tanggal Pengerjaan</p>
+                    @if(Session::get('sampaitanggalpekerjaan'))
                     <p>: {{ Session::get('daritanggalpekerjaan')}} - {{ Session::get('sampaitanggalpekerjaan')}}</p>
+                    @else
+                    <p>: {{ Session::get('daritanggalpekerjaan')}}</p>
+                    @endif
                 </div>
                 <div class="flex pl-3">
                     <p class="w-4/12">Waktu Pengerjaan</p>
