@@ -69,7 +69,7 @@
                             <span class="label-text">Dari</span>
                         </label>
                         <input type="date" id="daritanggalpekerjaan" name="daritanggalpekerjaan" placeholder="Tanggal pekerjaan"
-                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" required/>
+                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" placeholder="Mulai" required/>
                     </div>
                     <div class="w-1/2">
                         <label class="label">
