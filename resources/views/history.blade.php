@@ -10,8 +10,10 @@
                 <input type="text" name="search" class="w-fit input bg-transparent input-bordered border-2"
                     placeholder="Search...">
                 <div class="flex gap-x-2 my-2">
-                    <input type="date" name="start_date" class="w-full input bg-transparent input-bordered border-2">
-                    <input type="date" name="end_date" class="w-full input bg-transparent input-bordered border-2">
+                    <input type="text" name="start_date" class="w-full input bg-transparent input-bordered border-2"
+                    placeholder="Mulai" onfocus="this.type='date'" onblur="this.type='text'">
+                    <input type="text" name="end_date" class="w-full input bg-transparent input-bordered border-2"
+                    placeholder="Selesai" onfocus="this.type='date'" onblur="this.type='text'">
                 </div>
                 <button type="submit" class="btn btn-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

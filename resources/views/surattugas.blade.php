@@ -66,17 +66,17 @@
 
                     <div class="w-1/2">
                         <label class="label">
-                            <span class="label-text">Dari</span>
+                            <span class="label-text">Mulai</span>
                         </label>
-                        <input type="date" id="daritanggalpekerjaan" name="daritanggalpekerjaan" placeholder="Tanggal pekerjaan"
-                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" placeholder="Mulai" required/>
+                        <input type="text" id="daritanggalpekerjaan" name="daritanggalpekerjaan"
+                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" placeholder="Mulai" onfocus="this.type='date'" onblur="this.type='text'" required/>
                     </div>
                     <div class="w-1/2">
                         <label class="label">
-                            <span class="label-text">Sampai</span>
+                            <span class="label-text">Selesai</span>
                         </label>
-                        <input type="date" id="sampai tanggalpekerjaan" name="sampaitanggalpekerjaan" placeholder="Tanggal pekerjaan"
-                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" />
+                        <input type="text" id="sampai tanggalpekerjaan" name="sampaitanggalpekerjaan"
+                            class="input bg-transparent input-bordered border-2 w-full" data-theme="light" placeholder="Selesai" onfocus="this.type='date'" onblur="this.type='text'"/>
                     </div>
                 </div>
             </div>
