@@ -24,21 +24,20 @@
             style="background-image: url('assets/wallpaper.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
         </div>
 
-            <nav class="w-full bg-white flex items-center justify-center gap-x-3" style="height: 10vh;">
-                <img src="{{ asset('assets/logo_kampus.png') }}" alt="Logo Kampus" class="w-14">
-                <img class="w-1/12" src="/assets/logo.png" alt="Photo of PLN" />
-            </nav>
-            <div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 xs:"
-                style="height: 90vh;">
-                <div class="text-center font-medium">
-                    <h1 class="text-2xl">Hello!</h1>
-                    <h3>Pembuatan Surat Perintah Perjalanan Dinas (SPPD)</h3>
-                    <h3>PT ICON PLUS KANTOR PERWAKILAN KALIMANTAN SELATAN</h3>
-                </div>
-                <div class="z-50 w-full sm:max-w-3xl mt-6 px-6 py-4 bg-white overflow-hidden rounded-lg">
-                    {{ $slot }}
-                </div>
+        <nav class="w-full bg-white flex items-center justify-center gap-x-3" style="height: 10vh;">
+            <img src="{{ asset('assets/logo_kampus.png') }}" alt="Logo Kampus" class="w-14">
+            <img class="w-1/12" src="/assets/logo.png" alt="Photo of PLN" />
+        </nav>
+        <div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 xs:" style="height: 90vh;">
+            <div class="text-center font-medium">
+                <h1 class="text-2xl">Hello!</h1>
+                <h3>PEMBUATAN APLIKASI SURAT PERINTAH PERJALANAN DINAS (SPPD) BERBASIS WEB </h3>
+                <p>DI PT PLN ICON PLUS KANTOR PERWAKILAN KALIMANTAN SELATAN</p>
             </div>
+            <div class="z-50 w-full sm:max-w-3xl mt-6 px-6 py-4 bg-white overflow-hidden rounded-lg">
+                {{ $slot }}
+            </div>
+        </div>
     </div>
 </body>
 
