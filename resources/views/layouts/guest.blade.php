@@ -32,7 +32,7 @@
             <div class="text-center font-medium">
                 <h1 class="text-2xl">Hello!</h1>
                 <h3>PEMBUATAN APLIKASI SURAT PERINTAH PERJALANAN DINAS (SPPD) BERBASIS WEB </h3>
-                <p>DI PT PLN ICON PLUS KANTOR PERWAKILAN KALIMANTAN SELATAN</p>
+                <p>DI PT PLN ICON PLUS KANTOR PERWAKILAN KALIMANTAN SELATAN</p>
             </div>
             <div class="z-50 w-full sm:max-w-3xl mt-6 px-6 py-4 bg-white overflow-hidden rounded-lg">
                 {{ $slot }}

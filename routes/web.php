@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdministratorController;
+use App\Http\Middleware\Administrator;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,9 @@ use App\Http\Controllers\AdministratorController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'administrator'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'administrator'])->group(function () {
     Route::get('/', function () {
         $date = Carbon::parse(now()->format('Y-m-d'));
         $formattedDate = $date->format('Y-m-d');
@@ -73,9 +74,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:administrator')->group(function(){
+        Route::post('register/admin', [AdministratorController::class, 'storeAdmin'])->name('registerAdmin');
+        Route::post('register/manager', [AdministratorController::class, 'storeManager'])->name('registerManager');
         Route::get('administrator/register', [AdministratorController::class, 'index'])->name('administrator.index');
-        Route::post('administrator/register/admin', [AdministratorController::class, 'admin'])->name('administrator.admin');
-        Route::post('administrator/register/manager', [AdministratorController::class, 'manager'])->name('administrator.manager');
     });
 
 });

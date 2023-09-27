@@ -19,6 +19,5 @@ class DatabaseSeeder extends Seeder
             NoSurat::insert($nosurat);
 
             $this->call(ROleSeeder::class);
-            $this->call(AdministratorSeeder::class);
     }
 }
