@@ -44,8 +44,26 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        return redirect()->back()->with('message', 'Akun Admin Berhasil Dibuat');
+    }
 
-        return redirect(RouteServiceProvider::HOME);
+    public function storeManager(Request $request): RedirectResponse 
+    {
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ])->assignRole('manager');
+
+        event(new Registered($user));
+
+        return redirect()->back()->with('message', 'Akun Manager Berhasil Dibuat');
     }
 }

@@ -5,6 +5,7 @@ use App\Models\History;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdministratorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,21 +55,27 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
 
-    Route::middleware('role:user')->group(function(){
+    Route::middleware('role:user|administrator')->group(function(){
 
         Route::get('/pengajuan', function () {
             return view('surattugas');
-        })->middleware(['role:user'])->name('pengajuan');
+        })->name('pengajuan');
         
         Route::delete('/delete/{id}', [PdfController::class, 'delete'])->name('delete.index');
 
     });
     
-    Route::middleware('role:manager')->group(function(){
+    Route::middleware('role:manager|administrator')->group(function(){
 
         Route::post('/history/setuju/{id}', [PdfController::class, 'setuju'])->name('history.setuju');
         Route::post('/history/tidaksetuju/{id}', [PdfController::class, 'tidaksetuju'])->name('history.tidaksetuju');
 
+    });
+
+    Route::middleware('role:administrator')->group(function(){
+        Route::get('administrator/register', [AdministratorController::class, 'index'])->name('administrator.index');
+        Route::post('administrator/register/admin', [AdministratorController::class, 'admin'])->name('administrator.admin');
+        Route::post('administrator/register/manager', [AdministratorController::class, 'manager'])->name('administrator.manager');
     });
 
 });
