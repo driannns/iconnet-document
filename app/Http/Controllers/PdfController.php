@@ -86,33 +86,8 @@ class PdfController extends Controller
                 'sampaitanggalpekerjaan' => $request->sampaitanggalpekerjaan,
                 'no_pa_adop' => $request->keterangan,
             ]);
-            session(
-                [
-                    'number' => $request->myNumber,
-                    'divisi' => $request->divisi,
-                    'jenis' => $request->jenis,
-                    'lokasi' => $request->lokasi,
-                    'date' => $formattedDate,
-                    'waktu' => $waktu,
-                    'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
-                    'nosurat' => $formatnosurat,
-                    'keterangan' => $request->keterangan
-                    ]
-                );
         } elseif($request->sampaitanggalpekerjaan){
 
-            session(
-                [
-                    'number' => $request->myNumber,
-                    'divisi' => $request->divisi,
-                    'jenis' => $request->jenis,
-                    'lokasi' => $request->lokasi,
-                    'date' => $formattedDate,
-                    'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
-                    'waktu' => $waktu,
-                    'nosurat' => $formatnosurat,
-                    ]
-                );
                 $combinedKaryawan = implode(', ', $karyawan);
                 History::create([
                     'no_surat' => $formatnosurat,
@@ -129,18 +104,6 @@ class PdfController extends Controller
                 ]);
             }
             elseif($request->keterangan && $request->sampaitanggalpekerjaan){
-                session(
-                    [
-                        'number' => $request->myNumber,
-                        'divisi' => $request->divisi,
-                        'jenis' => $request->jenis,
-                        'lokasi' => $request->lokasi,
-                        'date' => $formattedDate,
-                        'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
-                        'waktu' => $waktu,
-                        'nosurat' => $formatnosurat,
-                        ]
-                    );
                     $combinedKaryawan = implode(', ', $karyawan);
                     History::create([
                         'no_surat' => $formatnosurat,
@@ -158,18 +121,6 @@ class PdfController extends Controller
                     ]);
             }
             else {
-                session(
-                    [
-                        'number' => $request->myNumber,
-                        'divisi' => $request->divisi,
-                        'jenis' => $request->jenis,
-                        'lokasi' => $request->lokasi,
-                        'date' => $formattedDate,
-                        'daritanggalpekerjaan' =>$formattedDariTanggalPekerjaan,
-                        'waktu' => $waktu,
-                        'nosurat' => $formatnosurat,
-                        ]
-                    );
                     $combinedKaryawan = implode(', ', $karyawan);
                     History::create([
                         'no_surat' => $formatnosurat,
@@ -189,7 +140,7 @@ class PdfController extends Controller
                 'nosurat' => $nomorsurat
             ]);
             
-            return redirect()->route("pengajuan")->with('message', 'Dokumen sudah bisa didownload di button "Generate PDF" di bawah kiri!');
+            return redirect()->route("pengajuan")->with('message', 'Dokumen berhasil dibuat, bisa diliat di history');
 
             }
             
@@ -263,10 +214,10 @@ class PdfController extends Controller
     public function search(Request $request){
         $search = $request->search;
         if($request->start_date || $request->end_date){
-            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
-            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $start_date = Carbon::parse($request->start_date);
+            $end_date = Carbon::parse($request->end_date);
             if($request->search){
-                $history = History::whereBetween('created_at',[$start_date,$end_date])
+                $history = History::whereBetween('created_at',[$start_date, $end_date])
                                     ->where('no_surat', 'LIKE', '%' . $request->search . '%')
                                     ->orwhere('date',  'LIKE', '%' . $request->search . '%')
                                     ->orwhere('divisi',  'LIKE', '%' . $request->search . '%')

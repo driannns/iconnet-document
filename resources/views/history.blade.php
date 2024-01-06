@@ -107,7 +107,11 @@
                             <td>{{ $data->keterangan }}</td>
                             @role('user')
                             <td class="flex gap-x-1">
+                                @if($data->persetujuan == 'Disetujui')
                                 <button id="btn-print" type="submit" class="btn btn-primary">Preview</button>
+                                @else
+                                <label for="declineModal" class="btn btn-primary">Preview</label>
+                                @endif
                                 <!-- The button to open modal -->
                                 <label for="my_modal{{ $data->id }}" class="btn btn-accent">Edit</label>
                                 <label for="my_modal_6" class="btn btn-error text-white">Delete</label>
@@ -365,7 +369,17 @@
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <input type="checkbox" id="declineModal" class="modal-toggle" />
+                        <div class="modal" role="dialog">
+                        <div class="modal-box bg-white">
+                            <h3 class="font-bold text-lg text-center">Information!</h3>
+                            <p class="py-4 text-center">Dokumen Belum DiSetujui/tidak disetujui</p>
+                            <div class="modal-action">
+                            <label for="declineModal" class="btn">Close!</label>
+                            </div>
+                        </div>
+                        </div>
                         @elserole('manager')
                         <td>
                             <div class="flex gap-2">
