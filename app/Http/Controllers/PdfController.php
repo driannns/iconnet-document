@@ -142,8 +142,9 @@ class PdfController extends Controller
             
             return redirect()->route("pengajuan")->with('message', 'Dokumen berhasil dibuat, bisa diliat di history');
 
-            }
+    }
             
+    
     public function history(){
         $history = History::paginate(10);
         return view('history', compact('history'));
@@ -171,6 +172,7 @@ class PdfController extends Controller
         ];        
         $formattedDariTanggalPekerjaan = strtr($formattedDariTanggalPekerjaan, $monthNames);
         if($request->sampaitanggalpekerjaan){
+
             $formattedSampaiTanggalPekerjaan = Carbon::parse($request->sampaitanggalpekerjaan)->format('d F Y');
             $formattedSampaiTanggalPekerjaan = strtr($formattedSampaiTanggalPekerjaan, $monthNames);
             
@@ -280,7 +282,6 @@ class PdfController extends Controller
             $formattedSampaiTanggalPekerjaan = strtr($formattedSampaiTanggalPekerjaan, $monthNames);
             $data->update([
             'sampaitanggalpekerjaan' => $request->sampaitanggalpekerjaan,
-            'sampaitanggalpekerjaan' =>$formattedSampaiTanggalPekerjaan,
             ]);
         }
 
